@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wallet, Power, AlertTriangle, Bot } from 'lucide-react';
-import type { TradingAgent } from '../App';
+import type { TradingAgent } from './App';
 
 interface HeaderProps {
   isConnected: boolean;

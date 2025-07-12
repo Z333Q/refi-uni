@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Activity, Clock, Search, Filter, ExternalLink, Bot } from 'lucide-react';
-import type { TradingAgent } from '../App';
+import React, { useState, useEffect } from 'react'
+import { Activity, Clock, Search, Filter, ExternalLink, Bot } from 'lucide-react'
+import type { TradingAgent } from './App'
+import { useSubscription } from '@apollo/client'
+import { TRADE_FILLED } from '../graphql/queries'
 
 interface Trade {
   id: string;
@@ -20,9 +22,17 @@ interface TradeStreamProps {
 }
 
 export function TradeStream({ currentAgent }: TradeStreamProps) {
-  const [trades, setTrades] = useState<Trade[]>([]);
-  const [filter, setFilter] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [trades, setTrades] = useState<Trade[]>([])
+  const [filter, setFilter] = useState('all')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const { data } = useSubscription(TRADE_FILLED)
+
+  useEffect(() => {
+    if (data?.tradeFilled) {
+      setTrades((prev) => [data.tradeFilled, ...prev.slice(0, 19)])
+    }
+  }, [data])
 
   if (!currentAgent) {
     return (
@@ -33,80 +43,8 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
           <p className="text-gray-400">Select an active trading agent to view trade stream</p>
         </div>
       </div>
-    );
+    )
   }
-  useEffect(() => {
-    // Simulate real-time trades
-    const mockTrades: Trade[] = [
-      {
-        id: '1',
-        timestamp: new Date(Date.now() - 30000).toISOString(),
-        txHash: '0x8f2a...b9c4',
-        token: 'ETH',
-        type: 'buy',
-        quantity: '2.5',
-        price: '$3,247.82',
-        latency: 2.1,
-        status: 'completed',
-        agentId: currentAgent.id
-      },
-      {
-        id: '2',
-        timestamp: new Date(Date.now() - 120000).toISOString(),
-        txHash: '0x7e1d...a8f3',
-        token: 'WBTC',
-        type: 'sell',
-        quantity: '0.15',
-        price: '$67,432.10',
-        latency: 1.8,
-        status: 'completed'
-      },
-      {
-        id: '3',
-        timestamp: new Date(Date.now() - 240000).toISOString(),
-        txHash: '0x6d0c...9e2b',
-        token: 'UNI',
-        type: 'buy',
-        quantity: '450',
-        price: '$15.24',
-        latency: 3.2,
-        status: 'completed'
-      },
-      {
-        id: '4',
-        timestamp: new Date(Date.now() - 10000).toISOString(),
-        txHash: '0x5c9b...8d1a',
-        token: 'USDC',
-        type: 'buy',
-        quantity: '10,000',
-        price: '$1.00',
-        latency: 0.9,
-        status: 'pending'
-      }
-    ];
-
-    setTrades(mockTrades);
-
-    // Simulate new trades
-    const interval = setInterval(() => {
-      const newTrade: Trade = {
-        id: Date.now().toString(),
-        timestamp: new Date().toISOString(),
-        txHash: `0x${Math.random().toString(16).substring(2, 8)}...${Math.random().toString(16).substring(2, 6)}`,
-        token: ['ETH', 'WBTC', 'UNI', 'USDC'][Math.floor(Math.random() * 4)],
-        type: Math.random() > 0.5 ? 'buy' : 'sell',
-        quantity: (Math.random() * 1000).toFixed(2),
-        price: `$${(Math.random() * 5000).toFixed(2)}`,
-        latency: Math.random() * 4,
-        status: 'completed'
-      };
-
-      setTrades(prev => [newTrade, ...prev.slice(0, 19)]);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const filteredTrades = trades.filter(trade => {
     const matchesFilter = filter === 'all' || trade.type === filter;
     const matchesSearch = trade.token.toLowerCase().includes(searchTerm.toLowerCase()) ||

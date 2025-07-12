@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus, Bot, TrendingUp, TrendingDown, Pause, Play } from 'lucide-react';
-import type { TradingAgent } from '../App';
+import type { TradingAgent } from './App';
 
 interface AgentSelectorProps {
   agents: TradingAgent[];

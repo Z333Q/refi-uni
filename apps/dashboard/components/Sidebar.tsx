@@ -11,7 +11,7 @@ import {
   UserCheck,
   Zap
 } from 'lucide-react';
-import type { TabType } from '../App';
+import type { TabType } from './App';
 
 interface SidebarProps {
   activeTab: TabType;
