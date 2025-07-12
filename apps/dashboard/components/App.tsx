@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Sidebar } from './components/Sidebar';
-import { Header } from './components/Header';
-import { PortfolioOverview } from './components/PortfolioOverview';
-import { BasketDetail } from './components/BasketDetail';
-import { TradeStream } from './components/TradeStream';
-import { ProofExplorer } from './components/ProofExplorer';
-import { WalletStaking } from './components/WalletStaking';
-import { ApiKeys } from './components/ApiKeys';
-import { AlertsSettings } from './components/AlertsSettings';
-import { ComplianceAudit } from './components/ComplianceAudit';
-import { GuardianConsole } from './components/GuardianConsole';
-import { ConnectWizard } from './components/ConnectWizard';
-import { AgentSelector } from './components/AgentSelector';
+import { Sidebar } from './Sidebar';
+import { Header } from './Header';
+import { PortfolioOverview } from './PortfolioOverview';
+import { BasketDetail } from './BasketDetail';
+import { TradeStream } from './TradeStream';
+import { ProofExplorer } from './ProofExplorer';
+import { WalletStaking } from './WalletStaking';
+import { ApiKeys } from './ApiKeys';
+import { AlertsSettings } from './AlertsSettings';
+import { ComplianceAudit } from './ComplianceAudit';
+import { GuardianConsole } from './GuardianConsole';
+import { ConnectWizard } from './ConnectWizard';
+import { AgentSelector } from './AgentSelector';
 
 export type TabType = 'portfolio' | 'basket' | 'trades' | 'proofs' | 'wallet' | 'api' | 'alerts' | 'compliance' | 'guardian';
 

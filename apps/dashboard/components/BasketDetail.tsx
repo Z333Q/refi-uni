@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, RefreshCw, Settings, Plus, TrendingUp, Bot } from 'lucide-react';
 import { PerformanceChart } from './PerformanceChart';
-import type { TradingAgent } from '../App';
+import type { TradingAgent } from './App';
+import { sdk } from '@refi/sdk-js'
+
 
 interface BasketDetailProps {
   currentAgent?: TradingAgent;
@@ -10,6 +12,21 @@ interface BasketDetailProps {
 export function BasketDetail({ currentAgent }: BasketDetailProps) {
   const [selectedBasket, setSelectedBasket] = useState('defi-blue');
   const [isRebalancing, setIsRebalancing] = useState(false);
+  const [gasEstimate, setGasEstimate] = useState<string>()
+
+  useEffect(() => {
+    let active = true
+    async function refresh() {
+      const value = await sdk.utils.estimateSwap(selectedBasket)
+      if (active) setGasEstimate(`$${value}`)
+    }
+    refresh()
+    const id = setInterval(refresh, 5000)
+    return () => {
+      active = false
+      clearInterval(id)
+    }
+  }, [selectedBasket])
   
   if (!currentAgent) {
     return (
@@ -36,10 +53,21 @@ export function BasketDetail({ currentAgent }: BasketDetailProps) {
     { symbol: 'UNI', name: 'Uniswap', weight: 15, value: '$6,785', change: '+3.4%', color: '#FF007A' },
   ];
 
-  const handleRebalance = () => {
-    setIsRebalancing(true);
-    setTimeout(() => setIsRebalancing(false), 3000);
-  };
+  const handleRebalance = async () => {
+    setIsRebalancing(true)
+    const intent = { type: 'rebalance', basketId: selectedBasket }
+    const ok = await sdk.proofs.hasValidProof(intent)
+    if (!ok) {
+      alert('Missing proof for rebalance')
+      setIsRebalancing(false)
+      return
+    }
+    try {
+      await sdk.intents.rebalance(selectedBasket)
+    } finally {
+      setIsRebalancing(false)
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -98,6 +126,9 @@ export function BasketDetail({ currentAgent }: BasketDetailProps) {
               <RefreshCw className={`h-4 w-4 ${isRebalancing ? 'animate-spin' : ''}`} />
               <span>{isRebalancing ? 'Rebalancing...' : 'Rebalance Now'}</span>
             </button>
+            {gasEstimate && (
+              <span className="ml-4 text-sm text-gray-400">Gas: {gasEstimate}</span>
+            )}
           </div>
           
           {/* Simple Doughnut Chart Representation */}

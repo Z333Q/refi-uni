@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { TrendingUp, TrendingDown, AlertTriangle, Shield, Zap, Bot } from 'lucide-react';
 import { PerformanceChart } from './PerformanceChart';
-import type { TradingAgent } from '../App';
+import type { TradingAgent } from './App';
+import { sdk } from '@refi/sdk-js'
 
 interface PortfolioOverviewProps {
   currentAgent?: TradingAgent;
@@ -12,18 +13,15 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
   const [varStatus, setVarStatus] = useState(0.127);
   
   useEffect(() => {
-    if (currentAgent) {
-      setPnl(currentAgent.pnl);
-      setVarStatus(currentAgent.varStatus);
+    let off: (() => void) | undefined
+    if (currentAgent?.id) {
+      sdk.metrics.getPortfolio(currentAgent.id).then((d) => setPnl(d.total))
+      off = sdk.ws.onSharpeDelta(currentAgent.id, (v: number) => setVarStatus(v))
     }
-    
-    const interval = setInterval(() => {
-      setPnl(prev => prev + (Math.random() - 0.5) * 100);
-      setVarStatus(prev => Math.max(0, prev + (Math.random() - 0.5) * 0.01));
-    }, 2000);
-    
-    return () => clearInterval(interval);
-  }, [currentAgent]);
+    return () => {
+      if (off) off()
+    }
+  }, [currentAgent?.id])
 
   if (!currentAgent) {
     return (
