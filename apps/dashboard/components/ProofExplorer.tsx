@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, CheckCircle, Clock, Eye, Copy, Bot } from 'lucide-react';
-import type { TradingAgent } from '../App';
+import type { TradingAgent } from './App';
 
 interface Proof {
   id: string;
