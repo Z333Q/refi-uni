@@ -114,7 +114,7 @@ function App() {
               <div className="flex items-center justify-center h-96">
                 <div className="text-center">
                   <h2 className="text-2xl font-bold mb-4">Welcome to ReFinity</h2>
-                  <p className="text-gray-400 mb-6">Connect your wallet to start trading with Wall-Street-grade rails</p>
+                  <p className="text-gray-400 mb-6">Connect your wallet to start trading with Wall-Street-grade rails on ReFinity Protocol</p>
                   <button
                     onClick={handleConnect}
                     className="bg-[#43D4A0] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#3BC492] transition-colors"

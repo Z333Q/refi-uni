@@ -42,7 +42,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
           <Zap className="h-8 w-8 text-[#43D4A0]" />
           <div>
             <div className="text-xl font-bold">ReFi.Trading</div>
-            <div className="text-xs text-gray-400 font-medium">$REFIN Protocol</div>
+            <div className="text-xs text-gray-400 font-medium">ReFinity Protocol</div>
           </div>
         </div>
         
