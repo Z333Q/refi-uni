@@ -269,14 +269,14 @@ export function ApiKeys() {
           <div className="bg-gray-800/30 rounded-lg p-4">
             <h4 className="font-medium mb-2">REST API</h4>
             <code className="text-sm text-gray-300">
-              curl -H "Authorization: Bearer YOUR_API_KEY" https://api.refinity.io/v1/portfolio
+              curl -H "Authorization: Bearer YOUR_API_KEY" https://api.refinity.io/v1/equities/portfolio
             </code>
           </div>
           
           <div className="bg-gray-800/30 rounded-lg p-4">
             <h4 className="font-medium mb-2">WebSocket</h4>
             <code className="text-sm text-gray-300">
-              wss://ws.refinity.io/v1/stream?token=YOUR_API_KEY
+              wss://ws.refinity.io/v1/equities/stream?token=YOUR_API_KEY
             </code>
           </div>
 

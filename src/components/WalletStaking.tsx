@@ -26,12 +26,12 @@ export function WalletStaking() {
           <div className="flex items-center space-x-3 mb-4">
             <Wallet className="h-8 w-8 text-[#43D4A0]" />
             <div>
-              <h3 className="font-semibold">ETH Balance</h3>
-              <p className="text-sm text-gray-400">Base Network</p>
+              <h3 className="font-semibold">USD Balance</h3>
+              <p className="text-sm text-gray-400">Trading Account</p>
             </div>
           </div>
-          <div className="text-2xl font-bold">1.247 ETH</div>
-          <div className="text-sm text-gray-400 mt-1">≈ $3,892.14</div>
+          <div className="text-2xl font-bold">$45,230</div>
+          <div className="text-sm text-gray-400 mt-1">Available Balance</div>
         </div>
 
         <div className="bg-[#151B23] border border-gray-800 rounded-xl p-6">
