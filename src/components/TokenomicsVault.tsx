@@ -134,19 +134,19 @@ export function TokenomicsVault() {
             <h4 className="font-medium mb-2">Gas Subsidy Tiers</h4>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-400">1,000+ REFI:</span>
+                <span className="text-gray-400">1,000+ $REFIN:</span>
                 <span className="text-[#43D4A0]">100% subsidy</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">500-999 REFI:</span>
+                <span className="text-gray-400">500-999 $REFIN:</span>
                 <span className="text-yellow-400">75% subsidy</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">100-499 REFI:</span>
+                <span className="text-gray-400">100-499 $REFIN:</span>
                 <span className="text-orange-400">50% subsidy</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">&lt;100 REFI:</span>
+                <span className="text-gray-400"><100 $REFIN:</span>
                 <span className="text-gray-400">No subsidy</span>
               </div>
             </div>
