@@ -24,10 +24,7 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
                   alt="ReFi.Trading Logo" 
                   className="h-6 w-6"
                 />
-                <div>
-                  <div className="text-xl font-bold">ReFi.Trading</div>
-                  <div className="text-xs text-gray-400 font-medium">ReFinity Protocol</div>
-                </div>
+                <div className="text-xl font-bold">ReFi.Trading</div>
               </div>
               <div className="h-6 w-px bg-gray-700"></div>
               <h1 className="text-lg font-medium text-gray-300">Trading Dashboard</h1>

@@ -43,10 +43,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
             alt="ReFi.Trading Logo" 
             className="h-9 w-9 self-center"
           />
-          <div>
-            <div className="text-xl font-bold">ReFi.Trading</div>
-            <div className="text-xs text-gray-400 font-medium">ReFinity Protocol</div>
-          </div>
+          <div className="text-xl font-bold">ReFi.Trading</div>
         </div>
         
         <nav className="space-y-2">
