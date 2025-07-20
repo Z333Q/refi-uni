@@ -14,6 +14,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const [agentName, setAgentName] = useState('');
   const [gasEstimate] = useState('$2.34');
   const [connectionError, setConnectionError] = useState('');
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const wallets = [
     { id: 'metamask', name: 'MetaMask', icon: '🦊' },
@@ -47,6 +48,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
   const connectToMetaMask = async () => {
     setConnectionError('');
+    setIsConnecting(true);
     
     try {
       // Check if MetaMask is installed
@@ -72,6 +74,8 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     } catch (error: any) {
       console.error('MetaMask connection error:', error);
       setConnectionError(error.message || 'Failed to connect to MetaMask');
+    } finally {
+      setIsConnecting(false);
     }
   };
 
@@ -96,7 +100,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   }, [isAdditionalAgent, step]);
 
   const canProceed = () => {
-    if (step === 1) return selectedWallet;
+    if (step === 1) return selectedWallet && !isConnecting;
     if (step === 2) return selectedTemplate;
     if (step === 3) return agentName.trim().length > 0;
     return false;
@@ -167,7 +171,12 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
               {wallets.map((wallet) => (
                 <button
                   key={wallet.id}
-                  onClick={() => setSelectedWallet(wallet.id)}
+                  onClick={() => {
+                    setSelectedWallet(wallet.id);
+                    if (wallet.id === 'metamask' && !isAdditionalAgent) {
+                      connectToMetaMask();
+                    }
+                  }}
                   disabled={isAdditionalAgent}
                   className={`w-full flex items-center space-x-4 p-4 rounded-lg border transition-colors ${
                     isAdditionalAgent ? 'opacity-50 cursor-not-allowed border-gray-700' :
@@ -177,7 +186,9 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                   }`}
                 >
                   <span className="text-2xl">{wallet.icon}</span>
-                  <span className="font-medium">{wallet.name}</span>
+                  <span className="font-medium">
+                    {isConnecting && wallet.id === selectedWallet ? 'Connecting...' : wallet.name}
+                  </span>
                   {isAdditionalAgent && wallet.id === 'metamask' && (
                     <CheckCircle className="h-5 w-5 text-[#43D4A0] ml-auto" />
                   )}
@@ -310,7 +321,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                 : 'bg-gray-700 text-gray-400 cursor-not-allowed'
             }`}
           >
-            <span>{step === 4 ? 'Deploy Agent' : 'Continue'}</span>
+            <span>
+              {isConnecting ? 'Connecting...' : 
+               step === 4 ? 'Deploy Agent' : 'Continue'}
+            </span>
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
