@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallet, Power, AlertTriangle, Bot, Zap } from 'lucide-react';
+import { Wallet, Power, AlertTriangle, Bot, Zap, Shield } from 'lucide-react';
 import type { TradingAgent } from '../App';
 
 interface HeaderProps {
