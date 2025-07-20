@@ -24,7 +24,7 @@ export function TokenomicsVault() {
         <div className="bg-[#151B23] border border-gray-800 rounded-xl p-4">
           <div className="flex items-center space-x-2 mb-2">
             <Coins className="h-5 w-5 text-[#43D4A0]" />
-            <span className="text-sm text-gray-400">REFI Price</span>
+            <span className="text-sm text-gray-400">$REFIN Price</span>
           </div>
           <div className="text-xl font-bold">${refiPrice.toFixed(3)}</div>
           <div className="text-sm text-[#43D4A0]">+8.2% (24h)</div>
