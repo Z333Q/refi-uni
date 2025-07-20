@@ -198,9 +198,9 @@ export function WalletStaking() {
         <h3 className="text-lg font-semibold mb-4">Staking History</h3>
         <div className="space-y-3">
           {[
-            { type: 'stake', amount: '500 REFI', date: '2 days ago', status: 'completed' },
-            { type: 'reward', amount: '12.5 REFI', date: '1 week ago', status: 'completed' },
-            { type: 'stake', amount: '300 REFI', date: '2 weeks ago', status: 'completed' },
+            { type: 'stake', amount: '500 $REFIN', date: '2 days ago', status: 'completed' },
+            { type: 'reward', amount: '12.5 $REFIN', date: '1 week ago', status: 'completed' },
+            { type: 'stake', amount: '300 $REFIN', date: '2 weeks ago', status: 'completed' },
           ].map((tx, index) => (
             <div key={index} className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg">
               <div className="flex items-center space-x-3">
