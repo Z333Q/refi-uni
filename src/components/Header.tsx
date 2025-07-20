@@ -20,7 +20,7 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2">
                 <Zap className="h-6 w-6 text-[#43D4A0]" />
-                <span className="text-xl font-bold">ReFinity</span>
+                <span className="text-xl font-bold">ReFi.Trading</span>
               </div>
               <div className="h-6 w-px bg-gray-700"></div>
               <h1 className="text-lg font-medium text-gray-300">Trading Dashboard</h1>

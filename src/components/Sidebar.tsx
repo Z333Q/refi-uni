@@ -40,7 +40,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       <div className="p-6">
         <div className="flex items-center space-x-2 mb-8">
           <Zap className="h-8 w-8 text-[#43D4A0]" />
-          <span className="text-xl font-bold">ReFinity</span>
+          <span className="text-xl font-bold">ReFi.Trading</span>
         </div>
         
         <nav className="space-y-2">
