@@ -36,14 +36,17 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
                   <span className={`font-medium ${
                     currentAgent.varStatus > 0.8 ? 'text-red-400' : 'text-[#43D4A0]'
                   }`}>
-                    {(currentAgent.varStatus * 100).toFixed(3)}% {currentAgent.varStatus > 0.8 ? '(HIGH)' : '(Safe)'}
+                    {(currentAgent.varStatus * 100).toFixed(3)}% {currentAgent.varStatus > 0.8 ? '(HIGH RISK)' : '(Safe)'}
                   </span>
+                  {currentAgent.varStatus > 0.8 && (
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  )}
                 </div>
               )}
               
               <div className="flex items-center space-x-2 text-sm text-gray-400">
                 <span>System VaR:</span>
-                <span className="text-[#43D4A0] font-medium">0.12% (Safe)</span>
+                <span className="text-[#43D4A0] font-medium">0.127% (Safe)</span>
               </div>
               
               <div className="flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-lg">

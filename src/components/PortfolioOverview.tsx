@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, AlertTriangle, Shield, Zap, Bot } from 'lucide-react';
 import { PerformanceChart } from './PerformanceChart';
+import { RiskMonitor } from './RiskMonitor';
 import type { TradingAgent } from '../App';
 
 interface PortfolioOverviewProps {
@@ -121,6 +122,9 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
       <div className="bg-[#151B23] border border-gray-800 rounded-xl p-6">
         <PerformanceChart height={280} />
       </div>
+
+      {/* Risk Monitor */}
+      <RiskMonitor />
 
       {/* Recent Activity */}
       <div className="bg-[#151B23] border border-gray-800 rounded-xl p-6">

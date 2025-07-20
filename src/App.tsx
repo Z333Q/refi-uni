@@ -12,8 +12,10 @@ import { ComplianceAudit } from './components/ComplianceAudit';
 import { GuardianConsole } from './components/GuardianConsole';
 import { ConnectWizard } from './components/ConnectWizard';
 import { AgentSelector } from './components/AgentSelector';
+import { RiskMonitor } from './components/RiskMonitor';
+import { TokenomicsVault } from './components/TokenomicsVault';
 
-export type TabType = 'portfolio' | 'basket' | 'trades' | 'proofs' | 'wallet' | 'api' | 'alerts' | 'compliance' | 'guardian';
+export type TabType = 'portfolio' | 'basket' | 'trades' | 'proofs' | 'risk' | 'tokenomics' | 'wallet' | 'api' | 'alerts' | 'compliance' | 'guardian';
 
 export interface TradingAgent {
   id: string;
@@ -127,6 +129,8 @@ function App() {
                 {activeTab === 'basket' && <BasketDetail currentAgent={currentAgent} />}
                 {activeTab === 'trades' && <TradeStream currentAgent={currentAgent} />}
                 {activeTab === 'proofs' && <ProofExplorer currentAgent={currentAgent} />}
+                {activeTab === 'risk' && <RiskMonitor />}
+                {activeTab === 'tokenomics' && <TokenomicsVault />}
                 {activeTab === 'wallet' && <WalletStaking />}
                 {activeTab === 'api' && <ApiKeys />}
                 {activeTab === 'alerts' && <AlertsSettings />}

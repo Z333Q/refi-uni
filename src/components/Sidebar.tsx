@@ -9,7 +9,9 @@ import {
   Bell, 
   FileCheck, 
   UserCheck,
-  Zap
+  Zap,
+  AlertTriangle,
+  Coins
 } from 'lucide-react';
 import type { TabType } from '../App';
 
@@ -23,6 +25,8 @@ const menuItems = [
   { id: 'basket' as TabType, label: 'Baskets', icon: PieChart },
   { id: 'trades' as TabType, label: 'Trade Stream', icon: Activity },
   { id: 'proofs' as TabType, label: 'Proof Explorer', icon: Shield },
+  { id: 'risk' as TabType, label: 'Risk Monitor', icon: AlertTriangle },
+  { id: 'tokenomics' as TabType, label: 'Tokenomics', icon: Coins },
   { id: 'wallet' as TabType, label: 'Wallet & Staking', icon: Wallet },
   { id: 'api' as TabType, label: 'API Keys', icon: Key },
   { id: 'alerts' as TabType, label: 'Alerts', icon: Bell },
