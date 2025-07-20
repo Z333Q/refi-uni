@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallet, Power, AlertTriangle, Bot, Zap, Shield } from 'lucide-react';
+import { Wallet, Power, AlertTriangle, Bot, Shield } from 'lucide-react';
 import type { TradingAgent } from '../App';
 
 interface HeaderProps {
@@ -19,10 +19,11 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
             {/* Logo & Title */}
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-3">
-                <div className="relative">
-                  <Zap className="h-6 w-6 text-[#43D4A0]" fill="currentColor" />
-                  <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#43D4A0] rounded-full animate-pulse"></div>
-                </div>
+                <img 
+                  src="/green-logo-only-squareArtboard 1@0.25x.png" 
+                  alt="ReFi.Trading Logo" 
+                  className="h-6 w-6"
+                />
                 <div>
                   <div className="text-xl font-bold">ReFi.Trading</div>
                   <div className="text-xs text-gray-400 font-medium">ReFinity Protocol</div>
