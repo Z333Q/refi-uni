@@ -104,7 +104,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   }, [isAdditionalAgent, step]);
 
   const canProceed = () => {
-    if (step === 1) return selectedWallet;
+    if (step === 1) return selectedWallet && !isConnecting;
     if (step === 2) return selectedTemplate;
     if (step === 3) return agentName.trim().length > 0;
     return false;
