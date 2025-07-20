@@ -131,7 +131,7 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
         <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
         <div className="space-y-3">
           {[
-            { type: 'trade', desc: 'Rebalanced DeFi Blue Chip basket', time: '2 min ago', status: 'success' },
+            { type: 'trade', desc: 'Rebalanced Tech Blue Chip basket', time: '2 min ago', status: 'success' },
             { type: 'proof', desc: 'VaR proof generated and verified', time: '5 min ago', status: 'success' },
             { type: 'alert', desc: 'Risk threshold adjusted to 0.8%', time: '1 hour ago', status: 'info' },
           ].map((activity, index) => (

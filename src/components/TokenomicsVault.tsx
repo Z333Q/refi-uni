@@ -15,8 +15,8 @@ export function TokenomicsVault() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold mb-2">REFI Tokenomics</h2>
-        <p className="text-gray-400">Token economics, staking rewards, and burn mechanism</p>
+        <h2 className="text-2xl font-bold mb-2">Platform Economics</h2>
+        <p className="text-gray-400">Fee structure, revenue sharing, and platform metrics</p>
       </div>
 
       {/* Token Overview */}

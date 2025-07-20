@@ -123,8 +123,8 @@ export function RiskMonitor() {
           <div className="text-sm">
             <p className="text-blue-300 font-medium">zk-VaR Guardrail Active</p>
             <p className="text-blue-200 mt-1">
-              Circom circuit monitoring 24h VaR at 97.5% confidence with 1% NAV cap. 
-              Groth16 proofs generated in &lt;30ms for every trade.
+              Advanced risk monitoring for equity portfolios with 24h VaR at 97.5% confidence. 
+              Real-time position sizing and correlation analysis across all holdings.
             </p>
           </div>
         </div>

@@ -24,9 +24,9 @@ export function BasketDetail({ currentAgent }: BasketDetailProps) {
   }
 
   const baskets = [
-    { id: 'defi-blue', name: 'DeFi Blue Chip', value: '$45,230', change: '+2.4%' },
+    { id: 'tech-blue', name: 'Tech Blue Chip', value: '$45,230', change: '+2.4%' },
     { id: 'growth', name: 'High Growth', value: '$23,150', change: '+8.1%' },
-    { id: 'stable', name: 'Yield Farming', value: '$12,890', change: '+0.3%' },
+    { id: 'dividend', name: 'Dividend Focus', value: '$12,890', change: '+0.3%' },
   ];
 
   const basketTokens = [
