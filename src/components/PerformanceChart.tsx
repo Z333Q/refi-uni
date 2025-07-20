@@ -64,6 +64,9 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   useEffect(() => {
     if (!chartContainerRef.current) return;
     if (initializedRef.current) return; // Prevent re-initialization
+    
+    // Check if container has valid dimensions before creating chart
+    if (chartContainerRef.current.clientWidth <= 0) return;
 
     try {
       // Create chart
