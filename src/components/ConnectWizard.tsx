@@ -79,9 +79,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     if (step < 4) {
       setStep(step + 1);
     } else {
+      const selectedTemplateData = templates.find(t => t.id === selectedTemplate);
       onComplete({
-        name: agentName || templates.find(t => t.id === selectedTemplate)?.name || 'Trading Agent',
-        strategy: templates.find(t => t.id === selectedTemplate)?.name || 'Custom Strategy'
+        name: agentName || selectedTemplateData?.name || 'Trading Agent',
+        strategy: selectedTemplateData?.name || 'Custom Strategy'
       });
     }
   };
