@@ -80,7 +80,7 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {kpiCards.map((kpi, index) => {
           const Icon = kpi.icon;
           const isRisk = kpi.title === 'Value at Risk';
@@ -89,12 +89,12 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
           return (
             <div 
               key={index}
-              className={`bg-[#151B23] border rounded-xl p-6 transition-all duration-300 ${
+              className={`bg-[#151B23] border rounded-xl p-4 md:p-6 transition-all duration-300 ${
                 isHigh ? 'border-red-500/50 bg-red-900/10' : 'border-gray-800 hover:border-gray-700'
               }`}
             >
               <div className="flex items-center justify-between mb-4">
-                <Icon className={`h-8 w-8 ${
+                <Icon className={`h-6 w-6 md:h-8 md:w-8 ${
                   isHigh ? 'text-red-400' : 
                   kpi.trend === 'up' ? 'text-[#43D4A0]' : 'text-red-400'
                 }`} />
@@ -104,8 +104,8 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
               </div>
               
               <div>
-                <h3 className="text-sm font-medium text-gray-400 mb-1">{kpi.title}</h3>
-                <div className="text-2xl font-bold mb-2">{kpi.value}</div>
+                <h3 className="text-xs md:text-sm font-medium text-gray-400 mb-1">{kpi.title}</h3>
+                <div className="text-lg md:text-2xl font-bold mb-2">{kpi.value}</div>
                 <div className={`text-sm font-medium ${
                   isHigh ? 'text-red-400' :
                   kpi.trend === 'up' ? 'text-[#43D4A0]' : 'text-red-400'
@@ -119,7 +119,7 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
       </div>
 
       {/* Chart Placeholder */}
-      <div className="bg-[#151B23] border border-gray-800 rounded-xl p-6">
+      <div className="bg-[#151B23] border border-gray-800 rounded-xl p-4 md:p-6">
         <PerformanceChart height={280} />
       </div>
 
@@ -127,21 +127,21 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
       <RiskMonitor />
 
       {/* Recent Activity */}
-      <div className="bg-[#151B23] border border-gray-800 rounded-xl p-6">
-        <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
+      <div className="bg-[#151B23] border border-gray-800 rounded-xl p-4 md:p-6">
+        <h3 className="text-base md:text-lg font-semibold mb-4">Recent Activity</h3>
         <div className="space-y-3">
           {[
             { type: 'trade', desc: 'Rebalanced Tech Blue Chip basket', time: '2 min ago', status: 'success' },
             { type: 'proof', desc: 'VaR proof generated and verified', time: '5 min ago', status: 'success' },
             { type: 'alert', desc: 'Risk threshold adjusted to 0.8%', time: '1 hour ago', status: 'info' },
           ].map((activity, index) => (
-            <div key={index} className="flex items-center space-x-4 p-3 bg-gray-800/30 rounded-lg">
+            <div key={index} className="flex items-center space-x-3 md:space-x-4 p-3 bg-gray-800/30 rounded-lg">
               <div className={`w-3 h-3 rounded-full ${
                 activity.status === 'success' ? 'bg-[#43D4A0]' :
                 activity.status === 'info' ? 'bg-blue-400' : 'bg-yellow-400'
               }`} />
               <div className="flex-1">
-                <p className="text-sm">{activity.desc}</p>
+                <p className="text-xs md:text-sm">{activity.desc}</p>
                 <p className="text-xs text-gray-400">{activity.time}</p>
               </div>
             </div>

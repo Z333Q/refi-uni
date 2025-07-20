@@ -138,7 +138,7 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
       </div>
 
       {/* Controls */}
-      <div className="bg-[#151B23] border border-gray-800 rounded-xl p-6">
+      <div className="bg-[#151B23] border border-gray-800 rounded-xl p-4 md:p-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -147,7 +147,7 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
               placeholder="Search by token or tx hash..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:border-[#43D4A0] focus:outline-none"
+              className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:border-[#43D4A0] focus:outline-none text-sm"
             />
           </div>
           
@@ -156,7 +156,7 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 focus:border-[#43D4A0] focus:outline-none"
+              className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 focus:border-[#43D4A0] focus:outline-none text-sm"
             >
               <option value="all">All Trades</option>
               <option value="buy">Buy Orders</option>
@@ -167,16 +167,16 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {[
           { label: 'Avg Latency', value: '2.1s', status: 'good' },
           { label: 'Total Trades', value: '1,247', status: 'neutral' },
           { label: 'Success Rate', value: '99.8%', status: 'good' },
           { label: 'Active Proofs', value: '3', status: 'neutral' }
         ].map((stat, index) => (
-          <div key={index} className="bg-[#151B23] border border-gray-800 rounded-xl p-4">
-            <div className="text-sm text-gray-400 mb-1">{stat.label}</div>
-            <div className={`text-xl font-bold ${
+          <div key={index} className="bg-[#151B23] border border-gray-800 rounded-xl p-3 md:p-4">
+            <div className="text-xs md:text-sm text-gray-400 mb-1">{stat.label}</div>
+            <div className={`text-lg md:text-xl font-bold ${
               stat.status === 'good' ? 'text-[#43D4A0]' : 'text-white'
             }`}>
               {stat.value}
@@ -191,15 +191,15 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
           <table className="w-full">
             <thead className="bg-gray-800/50">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Time</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Tx Hash</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Token</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Type</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Quantity</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Price</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Latency</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400">Status</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-400"></th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400">Time</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400 hidden sm:table-cell">Tx Hash</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400">Token</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400">Type</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400 hidden md:table-cell">Quantity</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400">Price</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400 hidden lg:table-cell">Latency</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400">Status</th>
+                <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-medium text-gray-400"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800">
@@ -210,15 +210,15 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
                     trade.latency > 3 ? 'bg-yellow-900/10' : ''
                   }`}
                 >
-                  <td className="px-6 py-4 text-sm">
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
                     <div className="flex items-center space-x-2">
-                      <Clock className="h-4 w-4 text-gray-400" />
+                      <Clock className="h-3 w-3 md:h-4 md:w-4 text-gray-400" />
                       <span>{formatTime(trade.timestamp)}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm font-mono">{trade.txHash}</td>
-                  <td className="px-6 py-4 text-sm font-medium">{trade.token}</td>
-                  <td className="px-6 py-4 text-sm">
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm font-mono hidden sm:table-cell">{trade.txHash}</td>
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm font-medium">{trade.token}</td>
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       trade.type === 'buy' 
                         ? 'bg-green-900 text-green-300' 
@@ -227,14 +227,14 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
                       {trade.type.toUpperCase()}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm">{trade.quantity}</td>
-                  <td className="px-6 py-4 text-sm">{trade.price}</td>
-                  <td className="px-6 py-4 text-sm">
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm hidden md:table-cell">{trade.quantity}</td>
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">{trade.price}</td>
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm hidden lg:table-cell">
                     <span className={getLatencyColor(trade.latency)}>
                       {trade.latency.toFixed(1)}s
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm">
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       trade.status === 'completed' ? 'bg-green-900 text-green-300' :
                       trade.status === 'pending' ? 'bg-yellow-900 text-yellow-300' :
@@ -243,9 +243,9 @@ export function TradeStream({ currentAgent }: TradeStreamProps) {
                       {trade.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm">
+                  <td className="px-3 md:px-6 py-3 md:py-4 text-xs md:text-sm">
                     <button className="text-gray-400 hover:text-[#43D4A0] transition-colors">
-                      <ExternalLink className="h-4 w-4" />
+                      <ExternalLink className="h-3 w-3 md:h-4 md:w-4" />
                     </button>
                   </td>
                 </tr>

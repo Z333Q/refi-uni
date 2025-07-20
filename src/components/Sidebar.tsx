@@ -17,6 +17,8 @@ import type { TabType } from '../App';
 interface SidebarProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 const menuItems = [
@@ -33,9 +35,24 @@ const menuItems = [
   { id: 'guardian' as TabType, label: 'Guardian', icon: UserCheck },
 ];
 
-export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
+export function Sidebar({ activeTab, onTabChange, isOpen = true, onClose }: SidebarProps) {
   return (
-    <div className="w-64 bg-[#151B23] border-r border-gray-800 min-h-screen">
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={onClose}
+        />
+      )}
+      
+      {/* Sidebar */}
+      <div className={`
+        fixed md:static inset-y-0 left-0 z-50 w-64 bg-[#151B23] border-r border-gray-800 min-h-screen
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        md:translate-x-0
+      `}>
       <div className="p-6">
         <div className="flex items-center space-x-3 mb-8">
           <img 
@@ -54,7 +71,10 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
             return (
               <button
                 key={item.id}
-                onClick={() => onTabChange(item.id)}
+                onClick={() => {
+                  onTabChange(item.id);
+                  onClose?.();
+                }}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                   isActive 
                     ? 'bg-[#43D4A0] text-black font-semibold' 
@@ -69,5 +89,6 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
         </nav>
       </div>
     </div>
+    </>
   );
 }

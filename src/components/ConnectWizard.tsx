@@ -123,26 +123,26 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   };
 
   return (
-    <div className="min-h-screen bg-[#0E1117] text-white flex items-center justify-center p-6">
-      <div className="bg-[#151B23] rounded-2xl p-8 w-full max-w-2xl border border-gray-800">
+    <div className="min-h-screen bg-[#0E1117] text-white flex items-center justify-center p-4 md:p-6">
+      <div className="bg-[#151B23] rounded-2xl p-4 md:p-8 w-full max-w-2xl border border-gray-800">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-xl md:text-2xl font-bold">
               {isAdditionalAgent ? 'Deploy Additional Agent' : 'Deploy Your Trading Agent'}
             </h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-white">×</button>
+            <button onClick={onClose} className="text-gray-400 hover:text-white text-xl">×</button>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4 overflow-x-auto pb-2">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="flex items-center">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-medium flex-shrink-0 ${
                   i <= step ? 'bg-[#43D4A0] text-black' : 'bg-gray-700 text-gray-400'
                 }`}>
-                  {i < step ? <CheckCircle className="h-5 w-5" /> : i}
+                  {i < step ? <CheckCircle className="h-3 w-3 md:h-5 md:w-5" /> : i}
                 </div>
                 {i < 5 && (
-                  <div className={`w-16 h-1 mx-2 ${
+                  <div className={`w-8 md:w-16 h-1 mx-1 md:mx-2 flex-shrink-0 ${
                     i < step ? 'bg-[#43D4A0]' : 'bg-gray-700'
                   }`} />
                 )}
@@ -150,7 +150,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
             ))}
           </div>
           
-          <div className="mt-4 text-sm text-gray-400">
+          <div className="mt-4 text-xs md:text-sm text-gray-400">
             Step {step} of 5: {
               step === 1 ? (isAdditionalAgent ? 'Verify Wallet' : 'Connect Wallet') : 
               step === 2 ? 'Select Broker' : 
@@ -163,7 +163,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 1 && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">
+            <h3 className="text-base md:text-lg font-semibold mb-4">
               {isAdditionalAgent ? 'Wallet Connected' : 'Select Your Wallet'}
             </h3>
             {isAdditionalAgent && (
@@ -181,7 +181,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
             )}
             {connectionError && (
               <div className="mb-4 p-3 bg-red-900/50 border border-red-500 rounded-lg">
-                <p className="text-red-400 text-sm">{connectionError}</p>
+                <p className="text-red-400 text-xs md:text-sm">{connectionError}</p>
               </div>
             )}
             <div className="space-y-3">
@@ -199,8 +199,8 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                       : 'border-gray-700 hover:border-gray-600'
                   }`}
                 >
-                  <span className="text-2xl">{wallet.icon}</span>
-                  <span className="font-medium">
+                  <span className="text-xl md:text-2xl">{wallet.icon}</span>
+                  <span className="font-medium text-sm md:text-base">
                     {wallet.name}
                   </span>
                   {isAdditionalAgent && wallet.id === 'metamask' && (
@@ -216,7 +216,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 2 && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">Select Your Broker</h3>
+            <h3 className="text-base md:text-lg font-semibold mb-4">Select Your Broker</h3>
             <div className="space-y-3">
               {brokers.map((broker) => (
                 <button
@@ -228,10 +228,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                       : 'border-gray-700 hover:border-gray-600'
                   }`}
                 >
-                  <span className="text-2xl">{broker.icon}</span>
+                  <span className="text-xl md:text-2xl">{broker.icon}</span>
                   <div className="flex-1 text-left">
-                    <div className="font-medium">{broker.name}</div>
-                    <div className="text-sm text-gray-400">{broker.description}</div>
+                    <div className="font-medium text-sm md:text-base">{broker.name}</div>
+                    <div className="text-xs md:text-sm text-gray-400">{broker.description}</div>
                   </div>
                 </button>
               ))}
@@ -241,7 +241,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 3 && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">Choose Strategy Template</h3>
+            <h3 className="text-base md:text-lg font-semibold mb-4">Choose Strategy Template</h3>
             <div className="space-y-4">
               {templates.map((template) => (
                 <button
@@ -255,8 +255,8 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <h4 className="font-semibold">{template.name}</h4>
-                      <p className="text-sm text-gray-400 mt-1">{template.description}</p>
+                      <h4 className="font-semibold text-sm md:text-base">{template.name}</h4>
+                      <p className="text-xs md:text-sm text-gray-400 mt-1">{template.description}</p>
                       <p className="text-xs text-gray-500 mt-2">{template.allocation}</p>
                     </div>
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
@@ -275,10 +275,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 4 && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">Configure Agent</h3>
+            <h3 className="text-base md:text-lg font-semibold mb-4">Configure Agent</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
+                <label className="block text-xs md:text-sm font-medium text-gray-400 mb-2">
                   Agent Name
                 </label>
                 <input
@@ -294,8 +294,8 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
               </div>
 
               <div className="bg-gray-800/30 rounded-lg p-4">
-                <h4 className="font-medium mb-2">Selected Strategy</h4>
-                <div className="text-sm text-gray-400">
+                <h4 className="font-medium mb-2 text-sm md:text-base">Selected Strategy</h4>
+                <div className="text-xs md:text-sm text-gray-400">
                   {templates.find(t => t.id === selectedTemplate)?.name}
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -304,8 +304,8 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
               </div>
 
               <div className="bg-gray-800/30 rounded-lg p-4">
-                <h4 className="font-medium mb-2">Selected Broker</h4>
-                <div className="text-sm text-gray-400">
+                <h4 className="font-medium mb-2 text-sm md:text-base">Selected Broker</h4>
+                <div className="text-xs md:text-sm text-gray-400">
                   {brokers.find(b => b.id === selectedBroker)?.name}
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -318,25 +318,25 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 5 && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">Confirm Deployment</h3>
+            <h3 className="text-base md:text-lg font-semibold mb-4">Confirm Deployment</h3>
             <div className="bg-gray-800 rounded-lg p-4 space-y-3">
-              <div className="flex justify-between">
+              <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Wallet:</span>
                 <span>{wallets.find(w => w.id === selectedWallet)?.name}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Broker:</span>
                 <span>{brokers.find(b => b.id === selectedBroker)?.name}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Strategy:</span>
                 <span>{templates.find(t => t.id === selectedTemplate)?.name}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Setup Fee:</span>
                 <span className="text-[#43D4A0]">Free</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between text-sm">
                 <span className="text-gray-400">Proof Generation:</span>
                 <span className="text-[#43D4A0]">~30ms</span>
               </div>
@@ -357,10 +357,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
         )}
 
-        <div className="flex justify-between mt-8">
+        <div className="flex flex-col sm:flex-row justify-between mt-8 space-y-3 sm:space-y-0">
           <button
             onClick={() => step > 1 ? setStep(step - 1) : onClose()}
-            className="px-6 py-2 text-gray-400 hover:text-white transition-colors"
+            className="px-4 md:px-6 py-2 text-gray-400 hover:text-white transition-colors text-sm md:text-base"
           >
             {step > 1 ? 'Back' : 'Cancel'}
           </button>
@@ -368,7 +368,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           <button
             onClick={handleNext}
             disabled={!canProceed()}
-            className={`flex items-center space-x-2 px-6 py-2 rounded-lg font-medium transition-colors ${
+            className={`flex items-center justify-center space-x-2 px-4 md:px-6 py-2 rounded-lg font-medium transition-colors text-sm md:text-base ${
               canProceed()
                 ? 'bg-[#43D4A0] text-black hover:bg-[#3BC492]'
                 : 'bg-gray-700 text-gray-400 cursor-not-allowed'

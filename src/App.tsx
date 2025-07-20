@@ -34,6 +34,7 @@ function App() {
   const [showWizard, setShowWizard] = useState(false);
   const [agents, setAgents] = useState<TradingAgent[]>([]);
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleConnect = () => {
     if (isConnected) {
@@ -91,13 +92,19 @@ function App() {
   return (
     <div className="min-h-screen bg-[#0E1117] text-white">
       <div className="flex">
-        <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+        <Sidebar 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab}
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
         <div className="flex-1">
           <Header 
             isConnected={isConnected} 
             onConnect={handleConnect}
             onDisconnect={() => setIsConnected(false)}
             currentAgent={currentAgent}
+            onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
           />
           
           {isConnected && agents.length > 0 && (
@@ -109,15 +116,15 @@ function App() {
             />
           )}
           
-          <main className="p-6">
+          <main className="p-4 md:p-6">
             {!isConnected ? (
               <div className="flex items-center justify-center h-96">
                 <div className="text-center">
-                  <h2 className="text-2xl font-bold mb-4">Welcome to ReFinity</h2>
-                  <p className="text-gray-400 mb-6">Connect your wallet to start trading with Wall-Street-grade rails on ReFinity Protocol</p>
+                  <h2 className="text-xl md:text-2xl font-bold mb-4">Welcome to ReFinity</h2>
+                  <p className="text-gray-400 mb-6 text-sm md:text-base px-4">Connect your wallet to start trading with Wall-Street-grade rails on ReFinity Protocol</p>
                   <button
                     onClick={handleConnect}
-                    className="bg-[#43D4A0] text-black px-6 py-3 rounded-lg font-semibold hover:bg-[#3BC492] transition-colors"
+                    className="bg-[#43D4A0] text-black px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold hover:bg-[#3BC492] transition-colors text-sm md:text-base"
                   >
                     Connect Wallet
                   </button>

@@ -152,13 +152,13 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold">Performance Chart</h3>
-        <div className="flex space-x-2">
+        <h3 className="text-base md:text-lg font-semibold">Performance Chart</h3>
+        <div className="flex space-x-1 md:space-x-2">
           {['1H', '1D', '1W', '1M'].map((period) => (
             <button
               key={period}
               onClick={() => setTimeframe(period)}
-              className={`px-3 py-1 text-sm rounded-lg transition-colors ${
+              className={`px-2 md:px-3 py-1 text-xs md:text-sm rounded-lg transition-colors ${
                 timeframe === period
                   ? 'bg-[#43D4A0] text-black font-medium'
                   : 'bg-gray-800 hover:bg-gray-700 text-gray-300'
@@ -176,7 +176,7 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
         style={{ height: `${height}px` }}
       />
       
-      <div className="mt-4 grid grid-cols-3 gap-4 text-sm">
+      <div className="mt-4 grid grid-cols-3 gap-2 md:gap-4 text-xs md:text-sm">
         <div className="text-center">
           <div className="text-gray-400">24h Change</div>
           <div className="text-[#43D4A0] font-medium">+2.4%</div>
