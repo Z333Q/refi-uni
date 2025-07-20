@@ -30,10 +30,10 @@ export function BasketDetail({ currentAgent }: BasketDetailProps) {
   ];
 
   const basketTokens = [
-    { symbol: 'ETH', name: 'Ethereum', weight: 35, value: '$15,830', change: '+1.2%', color: '#627EEA' },
-    { symbol: 'WBTC', name: 'Wrapped Bitcoin', weight: 30, value: '$13,569', change: '+0.8%', color: '#F7931A' },
-    { symbol: 'USDC', name: 'USD Coin', weight: 20, value: '$9,046', change: '+0.0%', color: '#2775CA' },
-    { symbol: 'UNI', name: 'Uniswap', weight: 15, value: '$6,785', change: '+3.4%', color: '#FF007A' },
+    { symbol: 'AAPL', name: 'Apple Inc.', weight: 35, value: '$15,830', change: '+1.2%', color: '#007AFF' },
+    { symbol: 'MSFT', name: 'Microsoft Corp.', weight: 30, value: '$13,569', change: '+0.8%', color: '#00BCF2' },
+    { symbol: 'GOOGL', name: 'Alphabet Inc.', weight: 20, value: '$9,046', change: '+2.1%', color: '#4285F4' },
+    { symbol: 'TSLA', name: 'Tesla Inc.', weight: 15, value: '$6,785', change: '+3.4%', color: '#CC0000' },
   ];
 
   const handleRebalance = () => {

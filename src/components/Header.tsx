@@ -29,7 +29,7 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
             {/* Network Status */}
             <div className="flex items-center space-x-2 bg-[#43D4A0]/10 border border-[#43D4A0]/30 px-3 py-1.5 rounded-lg">
               <div className="w-2 h-2 bg-[#43D4A0] rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-[#43D4A0]">Base Mainnet</span>
+              <span className="text-sm font-medium text-[#43D4A0]">NYSE/NASDAQ</span>
             </div>
           </div>
           

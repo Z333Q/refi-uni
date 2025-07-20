@@ -25,23 +25,23 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const templates = [
     { 
       id: 'defi-blue', 
-      name: 'DeFi Blue Chip', 
-      description: 'ETH, WBTC, USDC, UNI (Conservative)',
+      name: 'Tech Blue Chip', 
+      description: 'AAPL, MSFT, GOOGL, TSLA (Conservative)',
       allocation: 'Equal weight, monthly rebalance',
       risk: 'Low'
     },
     { 
       id: 'growth', 
       name: 'High Growth', 
-      description: 'LINK, MATIC, AAVE, CRV (Aggressive)',
+      description: 'NVDA, AMD, NFLX, AMZN (Aggressive)',
       allocation: 'Vol-weighted, weekly rebalance',
       risk: 'High'
     },
     { 
       id: 'stable', 
-      name: 'Yield Farming', 
-      description: 'USDC, DAI, USDT, sDAI (Stable)',
-      allocation: 'Yield-optimized, daily rebalance',
+      name: 'Dividend Focus', 
+      description: 'JNJ, PG, KO, PFE (Stable)',
+      allocation: 'Dividend-optimized, quarterly rebalance',
       risk: 'Very Low'
     },
   ];
