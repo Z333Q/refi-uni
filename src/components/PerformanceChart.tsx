@@ -94,6 +94,12 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
         height: height,
       });
 
+      // Check if chart creation was successful
+      if (!chart) {
+        console.error('Failed to create chart');
+        return;
+      }
+
       // Create area series
       const areaSeries = chart.addAreaSeries({
         lineColor: '#43D4A0',
