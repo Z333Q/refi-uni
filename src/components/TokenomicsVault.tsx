@@ -236,6 +236,5 @@ export function TokenomicsVault() {
         </div>
       </div>
     </div>
-  )
   );
 }
