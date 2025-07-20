@@ -86,12 +86,6 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
                     <span className="text-xs text-gray-400">•</span>
                     <span className="text-xs text-gray-400">{currentAgent.strategy}</span>
                   </div>
-                  <div className={`w-2 h-2 rounded-full ${
-                    currentAgent.status === 'active' ? 'bg-[#43D4A0]' :
-                    currentAgent.status === 'deploying' ? 'bg-yellow-400 animate-pulse' :
-                    'bg-gray-400'
-                  }`}></div>
-                </div>
               )}
             </div>
 
@@ -123,6 +117,15 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
                       <span className="text-xs text-red-400 font-medium">HIGH RISK</span>
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* Broker Status */}
+              {currentAgent && (
+                <div className="flex items-center space-x-2 text-sm">
+                  <div className="w-2 h-2 bg-[#43D4A0] rounded-full"></div>
+                  <span className="text-gray-400">Broker:</span>
+                  <span className="text-[#43D4A0] font-medium">Connected</span>
                 </div>
               )}
             </div>

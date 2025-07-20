@@ -10,6 +10,7 @@ interface ConnectWizardProps {
 export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }: ConnectWizardProps) {
   const [step, setStep] = useState(1);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+  const [selectedBroker, setSelectedBroker] = useState<string | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [agentName, setAgentName] = useState('');
   const [gasEstimate] = useState('$2.34');
@@ -20,6 +21,15 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     { id: 'metamask', name: 'MetaMask', icon: '🦊' },
     { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵' },
     { id: 'walletconnect', name: 'WalletConnect', icon: '🔗' },
+  ];
+
+  const brokers = [
+    { id: 'alpaca', name: 'Alpaca Markets', icon: '🦙', description: 'Commission-free trading' },
+    { id: 'tradier', name: 'Tradier', icon: '📈', description: 'Professional trading platform' },
+    { id: 'ibkr', name: 'Interactive Brokers', icon: '🏦', description: 'Global markets access' },
+    { id: 'robinhood', name: 'Robinhood', icon: '🏹', description: 'Simple mobile trading' },
+    { id: 'binance', name: 'Binance US', icon: '🟡', description: 'Crypto & stocks' },
+    { id: 'wealthsimple', name: 'WealthSimple', icon: '💎', description: 'Canadian markets' },
   ];
 
   const templates = [
@@ -84,7 +94,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const handleNext = () => {
     if (step === 1 && selectedWallet === 'metamask' && !isAdditionalAgent) {
       connectToMetaMask();
-    } else if (step < 4) {
+    } else if (step < 5) {
       setStep(step + 1);
     } else {
       const selectedTemplateData = templates.find(t => t.id === selectedTemplate);
@@ -105,9 +115,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
   const canProceed = () => {
     if (step === 1) return selectedWallet && !isConnecting;
-    if (step === 2) return selectedTemplate;
-    if (step === 3) return agentName.trim().length > 0;
-    if (step === 4) return true;
+    if (step === 2) return selectedBroker;
+    if (step === 3) return selectedTemplate;
+    if (step === 4) return agentName.trim().length > 0;
+    if (step === 5) return true;
     return false;
   };
 
@@ -123,14 +134,14 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
           
           <div className="flex items-center space-x-4">
-            {[1, 2, 3, 4].map((i) => (
+            {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="flex items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                   i <= step ? 'bg-[#43D4A0] text-black' : 'bg-gray-700 text-gray-400'
                 }`}>
                   {i < step ? <CheckCircle className="h-5 w-5" /> : i}
                 </div>
-                {i < 4 && (
+                {i < 5 && (
                   <div className={`w-16 h-1 mx-2 ${
                     i < step ? 'bg-[#43D4A0]' : 'bg-gray-700'
                   }`} />
@@ -140,10 +151,11 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
           
           <div className="mt-4 text-sm text-gray-400">
-            Step {step} of 4: {
+            Step {step} of 5: {
               step === 1 ? (isAdditionalAgent ? 'Verify Wallet' : 'Connect Wallet') : 
-              step === 2 ? 'Choose Strategy' : 
-              step === 3 ? 'Configure Agent' :
+              step === 2 ? 'Select Broker' : 
+              step === 3 ? 'Choose Strategy' : 
+              step === 4 ? 'Configure Agent' :
               'Confirm Deployment'
             }
           </div>
@@ -204,6 +216,31 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 2 && (
           <div>
+            <h3 className="text-lg font-semibold mb-4">Select Your Broker</h3>
+            <div className="space-y-3">
+              {brokers.map((broker) => (
+                <button
+                  key={broker.id}
+                  onClick={() => setSelectedBroker(broker.id)}
+                  className={`w-full flex items-center space-x-4 p-4 rounded-lg border transition-colors ${
+                    selectedBroker === broker.id
+                      ? 'border-[#43D4A0] bg-[#43D4A0]/10'
+                      : 'border-gray-700 hover:border-gray-600'
+                  }`}
+                >
+                  <span className="text-2xl">{broker.icon}</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium">{broker.name}</div>
+                    <div className="text-sm text-gray-400">{broker.description}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div>
             <h3 className="text-lg font-semibold mb-4">Choose Strategy Template</h3>
             <div className="space-y-4">
               {templates.map((template) => (
@@ -236,7 +273,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div>
             <h3 className="text-lg font-semibold mb-4">Configure Agent</h3>
             <div className="space-y-4">
@@ -265,11 +302,21 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                   {templates.find(t => t.id === selectedTemplate)?.description}
                 </div>
               </div>
+
+              <div className="bg-gray-800/30 rounded-lg p-4">
+                <h4 className="font-medium mb-2">Selected Broker</h4>
+                <div className="text-sm text-gray-400">
+                  {brokers.find(b => b.id === selectedBroker)?.name}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  {brokers.find(b => b.id === selectedBroker)?.description}
+                </div>
+              </div>
             </div>
           </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div>
             <h3 className="text-lg font-semibold mb-4">Confirm Deployment</h3>
             <div className="bg-gray-800 rounded-lg p-4 space-y-3">
@@ -278,12 +325,16 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                 <span>{wallets.find(w => w.id === selectedWallet)?.name}</span>
               </div>
               <div className="flex justify-between">
+                <span className="text-gray-400">Broker:</span>
+                <span>{brokers.find(b => b.id === selectedBroker)?.name}</span>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-gray-400">Strategy:</span>
                 <span>{templates.find(t => t.id === selectedTemplate)?.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Gas Fee:</span>
-                <span className="text-[#43D4A0]">{gasEstimate}</span>
+                <span className="text-gray-400">Setup Fee:</span>
+                <span className="text-[#43D4A0]">Free</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Proof Generation:</span>
@@ -325,7 +376,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           >
             <span>
               {isConnecting && step === 1 ? 'Connecting...' : 
-               step === 4 ? 'Deploy Agent' : 'Continue'}
+               step === 5 ? 'Deploy Agent' : 'Continue'}
             </span>
             <ChevronRight className="h-4 w-4" />
           </button>
