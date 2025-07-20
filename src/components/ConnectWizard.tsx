@@ -13,6 +13,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [agentName, setAgentName] = useState('');
   const [gasEstimate] = useState('$2.34');
+  const [connectionError, setConnectionError] = useState('');
 
   const wallets = [
     { id: 'metamask', name: 'MetaMask', icon: '🦊' },
@@ -36,8 +37,47 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       risk: 'High'
     },
     { 
+  const connectToMetaMask = async () => {
+    setIsConnecting(true);
+    setConnectionError('');
+    
+    try {
+      // Check if MetaMask is installed
+      if (!window.ethereum) {
+        throw new Error('MetaMask is not installed. Please install MetaMask to continue.');
+      }
+
+      // Request account access
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts'
+      });
+
+      if (accounts.length === 0) {
+        throw new Error('No accounts found. Please unlock MetaMask and try again.');
+      }
+
+      // Get the connected account
+      const address = accounts[0];
+      
+      // Call the parent component's connect handler
+      onWalletConnect(address);
+      
+      // Move to next step
+      setCurrentStep(2);
+      
+    } catch (error: any) {
+      console.error('MetaMask connection error:', error);
+      setConnectionError(error.message || 'Failed to connect to MetaMask');
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
       id: 'stable', 
       name: 'Yield Farming', 
+    if (wallet === 'MetaMask') {
+      connectToMetaMask();
+    }
       description: 'USDC, DAI, USDT, sDAI (Stable)',
       allocation: 'Yield-optimized, daily rebalance',
       risk: 'Very Low'
@@ -47,9 +87,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const handleNext = () => {
     if (step < 3) {
       setStep(step + 1);
-    } else {
-      const selectedTemplateData = templates.find(t => t.id === selectedTemplate);
-      onComplete({
+    if (currentStep === 2 && selectedStrategy) {
         name: agentName || selectedTemplateData?.name || 'Trading Agent',
         strategy: selectedTemplateData?.name || 'Custom Strategy'
       });
@@ -68,6 +106,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     if (step === 1) return selectedWallet;
     if (step === 2) return selectedTemplate;
     if (step === 3) return agentName.trim().length > 0;
+      setConnectionError('');
     return false;
   };
 
@@ -127,6 +166,11 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                 </div>
               </div>
             )}
+            {connectionError && (
+              <div className="mb-4 p-3 bg-red-900/50 border border-red-500 rounded-lg">
+                <p className="text-red-400 text-sm">{connectionError}</p>
+              </div>
+            )}
             <div className="space-y-3">
               {wallets.map((wallet) => (
                 <button
@@ -174,14 +218,20 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                     <div>
                       <h4 className="font-semibold">{template.name}</h4>
                       <p className="text-sm text-gray-400 mt-1">{template.description}</p>
+                  disabled={isConnecting}
                       <p className="text-xs text-gray-500 mt-2">{template.allocation}</p>
                     </div>
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
-                      template.risk === 'Low' ? 'bg-green-900 text-green-300' :
-                      template.risk === 'High' ? 'bg-red-900 text-red-300' :
+                      : 'border-gray-600 hover:border-gray-500'
+                  } ${isConnecting ? 'opacity-50 cursor-not-allowed' : ''}`}
                       'bg-blue-900 text-blue-300'
                     }`}>
                       {template.risk} Risk
+                    <span className="text-white">
+                      {wallet}
+                      {isConnecting && wallet === 'MetaMask' && (
+                        <span className="ml-2 text-sm text-gray-400">Connecting...</span>
+                      )}
                     </span>
                   </div>
                 </button>
@@ -285,3 +335,4 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     </div>
   );
 }
+              disabled={currentStep === 2 && !selectedStrategy}
