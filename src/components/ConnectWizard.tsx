@@ -37,8 +37,15 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       risk: 'High'
     },
     { 
+      id: 'stable', 
+      name: 'Yield Farming', 
+      description: 'USDC, DAI, USDT, sDAI (Stable)',
+      allocation: 'Yield-optimized, daily rebalance',
+      risk: 'Very Low'
+    },
+  ];
+
   const connectToMetaMask = async () => {
-    setIsConnecting(true);
     setConnectionError('');
     
     try {
@@ -59,35 +66,21 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       // Get the connected account
       const address = accounts[0];
       
-      // Call the parent component's connect handler
-      onWalletConnect(address);
-      
       // Move to next step
-      setCurrentStep(2);
+      setStep(2);
       
     } catch (error: any) {
       console.error('MetaMask connection error:', error);
       setConnectionError(error.message || 'Failed to connect to MetaMask');
-    } finally {
-      setIsConnecting(false);
     }
   };
 
-      id: 'stable', 
-      name: 'Yield Farming', 
-    if (wallet === 'MetaMask') {
-      connectToMetaMask();
-    }
-      description: 'USDC, DAI, USDT, sDAI (Stable)',
-      allocation: 'Yield-optimized, daily rebalance',
-      risk: 'Very Low'
-    },
-  ];
-
   const handleNext = () => {
-    if (step < 3) {
+    if (step < 4) {
       setStep(step + 1);
-    if (currentStep === 2 && selectedStrategy) {
+    } else {
+      const selectedTemplateData = templates.find(t => t.id === selectedTemplate);
+      onComplete({
         name: agentName || selectedTemplateData?.name || 'Trading Agent',
         strategy: selectedTemplateData?.name || 'Custom Strategy'
       });
@@ -106,7 +99,6 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     if (step === 1) return selectedWallet;
     if (step === 2) return selectedTemplate;
     if (step === 3) return agentName.trim().length > 0;
-      setConnectionError('');
     return false;
   };
 
@@ -194,9 +186,6 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                 </button>
               ))}
             </div>
-            {isAdditionalAgent && !selectedWallet && (
-              <script>setSelectedWallet('metamask')</script>
-            )}
           </div>
         )}
 
@@ -218,20 +207,14 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                     <div>
                       <h4 className="font-semibold">{template.name}</h4>
                       <p className="text-sm text-gray-400 mt-1">{template.description}</p>
-                  disabled={isConnecting}
                       <p className="text-xs text-gray-500 mt-2">{template.allocation}</p>
                     </div>
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
-                      : 'border-gray-600 hover:border-gray-500'
-                  } ${isConnecting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      template.risk === 'Low' ? 'bg-green-900 text-green-300' :
+                      template.risk === 'High' ? 'bg-red-900 text-red-300' :
                       'bg-blue-900 text-blue-300'
                     }`}>
                       {template.risk} Risk
-                    <span className="text-white">
-                      {wallet}
-                      {isConnecting && wallet === 'MetaMask' && (
-                        <span className="ml-2 text-sm text-gray-400">Connecting...</span>
-                      )}
                     </span>
                   </div>
                 </button>
@@ -327,7 +310,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
                 : 'bg-gray-700 text-gray-400 cursor-not-allowed'
             }`}
           >
-            <span>{step === 3 ? 'Deploy Agent' : 'Continue'}</span>
+            <span>{step === 4 ? 'Deploy Agent' : 'Continue'}</span>
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
@@ -335,4 +318,3 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     </div>
   );
 }
-              disabled={currentStep === 2 && !selectedStrategy}
