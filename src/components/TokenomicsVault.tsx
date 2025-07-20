@@ -146,7 +146,7 @@ export function TokenomicsVault() {
                 <span className="text-orange-400">50% subsidy</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400"><100 $REFIN:</span>
+                <span className="text-gray-400">{"<100 $REFIN:"}</span>
                 <span className="text-gray-400">No subsidy</span>
               </div>
             </div>
