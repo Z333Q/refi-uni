@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Wallet, Zap, Shield, CheckCircle } from 'lucide-react';
+import { ChevronRight, Wallet, Zap, Shield, CheckCircle, Eye, EyeOff, AlertTriangle } from 'lucide-react';
 
 interface ConnectWizardProps {
   onComplete: (agentData: { name: string; strategy: string }) => void;
