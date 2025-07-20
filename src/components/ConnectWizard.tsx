@@ -107,6 +107,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     if (step === 1) return selectedWallet && !isConnecting;
     if (step === 2) return selectedTemplate;
     if (step === 3) return agentName.trim().length > 0;
+    if (step === 4) return true;
     return false;
   };
 
