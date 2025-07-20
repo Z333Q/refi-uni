@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallet, Power, AlertTriangle, Bot } from 'lucide-react';
+import { Wallet, Power, AlertTriangle, Bot, Zap } from 'lucide-react';
 import type { TradingAgent } from '../App';
 
 interface HeaderProps {
@@ -11,77 +11,123 @@ interface HeaderProps {
 
 export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: HeaderProps) {
   return (
-    <header className="bg-[#151B23] border-b border-gray-800 px-6 py-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <h1 className="text-xl font-semibold">Trading Dashboard</h1>
-          {currentAgent && (
-            <div className="flex items-center space-x-2 bg-gray-800 px-3 py-1 rounded-full text-sm">
-              <Bot className="h-4 w-4 text-[#43D4A0]" />
-              <span>{currentAgent.name}</span>
+    <header className="bg-[#151B23] border-b border-gray-800">
+      <div className="px-6 py-4">
+        {/* Top Row - Main Navigation */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center space-x-6">
+            {/* Logo & Title */}
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
+                <Zap className="h-6 w-6 text-[#43D4A0]" />
+                <span className="text-xl font-bold">ReFinity</span>
+              </div>
+              <div className="h-6 w-px bg-gray-700"></div>
+              <h1 className="text-lg font-medium text-gray-300">Trading Dashboard</h1>
             </div>
-          )}
-          <div className="flex items-center space-x-2 bg-[#43D4A0] text-black px-3 py-1 rounded-full text-sm font-medium">
-            <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
-            Base Mainnet
+
+            {/* Network Status */}
+            <div className="flex items-center space-x-2 bg-[#43D4A0]/10 border border-[#43D4A0]/30 px-3 py-1.5 rounded-lg">
+              <div className="w-2 h-2 bg-[#43D4A0] rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-[#43D4A0]">Base Mainnet</span>
+            </div>
+          </div>
+          
+          {/* Right Side Controls */}
+          <div className="flex items-center space-x-3">
+            {isConnected && (
+              <>
+                {/* Wallet Info */}
+                <div className="flex items-center space-x-3 bg-gray-800/50 border border-gray-700 px-4 py-2 rounded-lg">
+                  <Wallet className="h-4 w-4 text-[#43D4A0]" />
+                  <span className="text-sm font-mono text-gray-300">0x8f2...a9c4</span>
+                  <button
+                    onClick={onDisconnect}
+                    className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+                    title="Disconnect"
+                  >
+                    <Power className="h-4 w-4" />
+                  </button>
+                </div>
+                
+                {/* Deploy Agent Button */}
+                <button
+                  onClick={onConnect}
+                  className="flex items-center space-x-2 bg-[#43D4A0] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
+                >
+                  <Bot className="h-4 w-4" />
+                  <span>Deploy Agent</span>
+                </button>
+              </>
+            )}
+            
+            {!isConnected && (
+              <button
+                onClick={onConnect}
+                className="flex items-center space-x-2 bg-[#43D4A0] text-black px-6 py-2.5 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
+              >
+                <Wallet className="h-4 w-4" />
+                <span>Connect Wallet</span>
+              </button>
+            )}
           </div>
         </div>
-        
-        <div className="flex items-center space-x-4">
-          {isConnected && (
-            <>
+
+        {/* Bottom Row - Agent & Risk Status */}
+        {isConnected && (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-6">
+              {/* Current Agent */}
               {currentAgent && (
-                <div className="flex items-center space-x-2 text-sm text-gray-400">
-                  <span>Agent VaR:</span>
+                <div className="flex items-center space-x-3 bg-gray-800/30 border border-gray-700 px-3 py-1.5 rounded-lg">
+                  <Bot className="h-4 w-4 text-[#43D4A0]" />
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium">{currentAgent.name}</span>
+                    <span className="text-xs text-gray-400">•</span>
+                    <span className="text-xs text-gray-400">{currentAgent.strategy}</span>
+                  </div>
+                  <div className={`w-2 h-2 rounded-full ${
+                    currentAgent.status === 'active' ? 'bg-[#43D4A0]' :
+                    currentAgent.status === 'deploying' ? 'bg-yellow-400 animate-pulse' :
+                    'bg-gray-400'
+                  }`}></div>
+                </div>
+              )}
+            </div>
+
+            {/* Risk Status */}
+            <div className="flex items-center space-x-4">
+              {/* System VaR */}
+              <div className="flex items-center space-x-2 text-sm">
+                <Shield className="h-4 w-4 text-[#43D4A0]" />
+                <span className="text-gray-400">System VaR:</span>
+                <span className="text-[#43D4A0] font-medium">0.127%</span>
+                <span className="text-xs text-gray-500">(Safe)</span>
+              </div>
+
+              {/* Agent VaR */}
+              {currentAgent && (
+                <div className="flex items-center space-x-2 text-sm">
+                  <div className={`w-3 h-3 rounded-full ${
+                    currentAgent.varStatus > 0.8 ? 'bg-red-500 animate-pulse' : 'bg-[#43D4A0]'
+                  }`}></div>
+                  <span className="text-gray-400">Agent VaR:</span>
                   <span className={`font-medium ${
                     currentAgent.varStatus > 0.8 ? 'text-red-400' : 'text-[#43D4A0]'
                   }`}>
-                    {(currentAgent.varStatus * 100).toFixed(3)}% {currentAgent.varStatus > 0.8 ? '(HIGH RISK)' : '(Safe)'}
+                    {(currentAgent.varStatus * 100).toFixed(3)}%
                   </span>
                   {currentAgent.varStatus > 0.8 && (
-                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                    <div className="flex items-center space-x-1">
+                      <AlertTriangle className="h-3 w-3 text-red-400" />
+                      <span className="text-xs text-red-400 font-medium">HIGH RISK</span>
+                    </div>
                   )}
                 </div>
               )}
-              
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
-                <span>System VaR:</span>
-                <span className="text-[#43D4A0] font-medium">0.127% (Safe)</span>
-              </div>
-              
-              <div className="flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-lg">
-                <Wallet className="h-4 w-4 text-[#43D4A0]" />
-                <span className="text-sm font-mono">0x8f2...a9c4</span>
-              </div>
-              
-              <button
-                onClick={onDisconnect}
-                className="p-2 text-gray-400 hover:text-red-400 transition-colors"
-                title="Disconnect"
-              >
-                <Power className="h-5 w-5" />
-              </button>
-            </>
-          )}
-          
-          {!isConnected && (
-            <button
-              onClick={onConnect}
-              className="bg-[#43D4A0] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
-            >
-              Connect Wallet
-            </button>
-          )}
-          
-          {isConnected && (
-            <button
-              onClick={onConnect}
-              className="bg-[#43D4A0] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
-            >
-              Deploy Agent
-            </button>
-          )}
-        </div>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
