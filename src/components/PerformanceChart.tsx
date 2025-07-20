@@ -10,7 +10,6 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<'Area'> | null>(null);
-  const initializedRef = useRef<boolean>(false);
   const [timeframe, setTimeframe] = useState('1D');
 
   // Generate mock data based on timeframe
@@ -63,7 +62,6 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   // Initialize chart once when component mounts
   useEffect(() => {
     if (!chartContainerRef.current) return;
-    if (initializedRef.current) return; // Prevent re-initialization
     
     // Check if container has valid dimensions before creating chart
     if (chartContainerRef.current.clientWidth <= 0) return;
@@ -94,12 +92,6 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
         height: height,
       });
 
-      // Check if chart creation was successful
-      if (!chart) {
-        console.error('Failed to create chart');
-        return;
-      }
-
       // Create area series
       const areaSeries = chart.addAreaSeries({
         lineColor: '#43D4A0',
@@ -110,7 +102,6 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
 
       chartRef.current = chart;
       seriesRef.current = areaSeries;
-      initializedRef.current = true;
 
       // Handle resize
       const handleResize = () => {
@@ -130,10 +121,16 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
         }
         chartRef.current = null;
         seriesRef.current = null;
-        initializedRef.current = false;
       };
     } catch (error) {
       console.error('Error creating chart:', error);
+    }
+  }, []); // Empty dependency array to run only once on mount
+
+  // Update chart height when height prop changes
+  useEffect(() => {
+    if (chartRef.current) {
+      chartRef.current.applyOptions({ height: height });
     }
   }, [height]);
 
