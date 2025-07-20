@@ -90,7 +90,7 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
                   <Bot className="h-4 w-4 text-[#43D4A0]" />
                   <div className="flex items-center space-x-2">
                     <span className="text-sm font-medium">{currentAgent.name}</span>
-                    <span className="text-xs text-gray-400">•</span>
+                    className="h-7 w-7 self-center"
                     <span className="text-xs text-gray-400">{currentAgent.strategy}</span>
                   </div>
                 </div>

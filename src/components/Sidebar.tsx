@@ -41,7 +41,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
           <img 
             src="/green-logo-only-squareArtboard 1@0.25x.png" 
             alt="ReFi.Trading Logo" 
-            className="h-8 w-8"
+            className="h-9 w-9 self-center"
           />
           <div>
             <div className="text-xl font-bold">ReFi.Trading</div>
