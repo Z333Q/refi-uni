@@ -39,7 +39,10 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     <div className="w-64 bg-[#151B23] border-r border-gray-800 min-h-screen">
       <div className="p-6">
         <div className="flex items-center space-x-3 mb-8">
-          <Zap className="h-8 w-8 text-[#43D4A0]" />
+          <div className="relative">
+            <Zap className="h-8 w-8 text-[#43D4A0]" fill="currentColor" />
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#43D4A0] rounded-full animate-pulse"></div>
+          </div>
           <div>
             <div className="text-xl font-bold">ReFi.Trading</div>
             <div className="text-xs text-gray-400 font-medium">ReFinity Protocol</div>
