@@ -120,6 +120,15 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent }: H
                   )}
                 </div>
               )}
+
+              {/* Broker Status */}
+              {currentAgent && (
+                <div className="flex items-center space-x-2 text-sm">
+                  <div className="w-2 h-2 bg-[#43D4A0] rounded-full"></div>
+                  <span className="text-gray-400">Broker:</span>
+                  <span className="text-[#43D4A0] font-medium">Connected</span>
+                </div>
+              )}
             </div>
           </div>
         )}
