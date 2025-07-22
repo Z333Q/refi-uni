@@ -162,7 +162,28 @@ function App() {
                 </div>
 
                 {/* Performance Metrics */}
-                <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-center">
+                <div className="space-y-6">
+                  <h2 className="text-xl md:text-2xl font-bold text-center text-neon-green">
+                    ReFinity© RL Agent Performance
+                  </h2>
+                  <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-center">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-neon-green rounded-full"></div>
+                      <span className="text-blue-gray">Sharpe</span>
+                      <span className="text-neon-green font-bold">+2.07</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                      <span className="text-blue-gray">Max DD</span>
+                      <span className="text-red-400 font-bold">-7.48%</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-neon-green rounded-full"></div>
+                      <span className="text-blue-gray">CAGR</span>
+                      <span className="text-neon-green font-bold">+28.06%</span>
+                    </div>
+                  </div>
+                </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-neon-green rounded-full"></div>
                     <span className="text-blue-gray">ReFinity© RL Agent Sharpe</span>
@@ -283,27 +304,6 @@ function App() {
                   </div>
                 </div>
 
-                {/* Footer Section */}
-                {/* Performance Metrics Section */}
-                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold mb-6 text-neon-green">
-                    ReFinity© RL Agent Performance
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-neon-green">+2.07</div>
-                      <div className="text-blue-gray mt-1">Sharpe Ratio</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-neon-green">{'< 7.48%'}</div>
-                      <div className="text-blue-gray mt-1">Max Drawdown</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-neon-green">+28.06%</div>
-                      <div className="text-blue-gray mt-1">CAGR</div>
-                    </div>
-                  </div>
-                </div>
 
                 {/* The Evolution of Trading Section */}
                 <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
