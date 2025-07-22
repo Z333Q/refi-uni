@@ -191,7 +191,7 @@ function App() {
 
                 {/* Waitlist Call to Action Section */}
                 <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold text-[#43D4A0] mb-4">
+                  <h3 className="text-xl md:text-2xl font-bold mb-4">
                     Ready to transform your trading?
                   </h3>
                   <p className="text-[#A8B8C5] mb-6 text-base md:text-lg max-w-2xl mx-auto">
