@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Wallet, Zap, Shield, CheckCircle, Eye, EyeOff, AlertTriangle } from 'lucide-react';
+import { ChevronRight, Wallet, Zap, Shield, CheckCircle, Eye, EyeOff, AlertTriangle, ExternalLink } from 'lucide-react';
 
 interface ConnectWizardProps {
   onComplete: (agentData: { name: string; strategy: string; brokerId: string; apiKeys: Record<string, string> }) => void;
   onClose: () => void;
   isAdditionalAgent?: boolean;
+}
+
+interface BrokerConfig {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  keyFields: {
+    name: string;
+    label: string;
+    type: 'text' | 'password';
+    placeholder: string;
+    required: boolean;
+  }[];
+  docsUrl: string;
 }
 
 export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }: ConnectWizardProps) {
@@ -20,6 +35,42 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const [gasEstimate] = useState('$2.34');
   const [connectionError, setConnectionError] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
+
+  const brokerConfigs: BrokerConfig[] = [
+    {
+      id: 'alpaca',
+      name: 'Alpaca Markets',
+      icon: '🦙',
+      description: 'Commission-free stock trading',
+      keyFields: [
+        { name: 'apiKey', label: 'API Key ID', type: 'text', placeholder: 'PKTEST...', required: true },
+        { name: 'secretKey', label: 'Secret Key', type: 'password', placeholder: 'Your secret key', required: true }
+      ],
+      docsUrl: 'https://alpaca.markets/docs/api-documentation/api-v2/'
+    },
+    {
+      id: 'tradier',
+      name: 'Tradier',
+      icon: '📈',
+      description: 'Professional trading platform',
+      keyFields: [
+        { name: 'accessToken', label: 'Access Token', type: 'password', placeholder: 'Your access token', required: true }
+      ],
+      docsUrl: 'https://documentation.tradier.com/brokerage-api/getting-started'
+    },
+    {
+      id: 'ibkr',
+      name: 'Interactive Brokers',
+      icon: '🏦',
+      description: 'Global markets access',
+      keyFields: [
+        { name: 'clientId', label: 'Client ID', type: 'text', placeholder: 'Your client ID', required: true },
+        { name: 'username', label: 'Username', type: 'text', placeholder: 'Your IBKR username', required: true },
+        { name: 'password', label: 'Password', type: 'password', placeholder: 'Your IBKR password', required: true }
+      ],
+      docsUrl: 'https://interactivebrokers.github.io/tws-api/'
+    }
+  ];
 
   const wallets = [
     { id: 'metamask', name: 'MetaMask', icon: '🦊' },
