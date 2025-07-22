@@ -14,8 +14,9 @@ import { ConnectWizard } from './components/ConnectWizard';
 import { AgentSelector } from './components/AgentSelector';
 import { RiskMonitor } from './components/RiskMonitor';
 import { TokenomicsVault } from './components/TokenomicsVault';
+import { Settings } from './components/Settings';
 
-export type TabType = 'portfolio' | 'basket' | 'trades' | 'proofs' | 'risk' | 'tokenomics' | 'wallet' | 'api' | 'alerts' | 'compliance' | 'guardian';
+export type TabType = 'portfolio' | 'basket' | 'trades' | 'proofs' | 'risk' | 'tokenomics' | 'wallet' | 'settings' | 'alerts' | 'compliance' | 'guardian';
 
 export interface TradingAgent {
   id: string;
@@ -27,6 +28,8 @@ export interface TradingAgent {
   pnl: number;
   varStatus: number;
   baskets: number;
+  brokerId?: string;
+  brokerConnected?: boolean;
 }
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('portfolio');
@@ -139,7 +142,7 @@ function App() {
                 {activeTab === 'risk' && <RiskMonitor />}
                 {activeTab === 'tokenomics' && <TokenomicsVault />}
                 {activeTab === 'wallet' && <WalletStaking />}
-                {activeTab === 'api' && <ApiKeys />}
+                {activeTab === 'settings' && <Settings />}
                 {activeTab === 'alerts' && <AlertsSettings />}
                 {activeTab === 'compliance' && <ComplianceAudit />}
                 {activeTab === 'guardian' && <GuardianConsole />}
