@@ -284,6 +284,62 @@ function App() {
                 </div>
 
                 {/* Footer Section */}
+                {/* Performance Metrics Section */}
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-6 text-neon-green">
+                    ReFinity© RL Agent Performance
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="text-center">
+                      <div className="text-2xl md:text-3xl font-bold text-neon-green">+2.07</div>
+                      <div className="text-blue-gray mt-1">Sharpe Ratio</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl md:text-3xl font-bold text-neon-green">{'< 7.48%'}</div>
+                      <div className="text-blue-gray mt-1">Max Drawdown</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl md:text-3xl font-bold text-neon-green">+28.06%</div>
+                      <div className="text-blue-gray mt-1">CAGR</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* The Evolution of Trading Section */}
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-4">The Evolution of Trading</h3>
+                  <p className="text-[#A8B8C5] mb-6 text-base md:text-lg">
+                    Traditional trading relies on intuition and delayed data. Our provable AI agents execute trades with mathematical precision, backed by cryptographic proof systems that ensure every decision is verifiable and compliant.
+                  </p>
+                  <a 
+                    href="https://refi.trading/analyzer/index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-6 py-3 bg-neon-green hover:bg-[#3BC492] text-black rounded-lg font-semibold transition-all duration-300 ease-in-out"
+                  >
+                    Launch Portfolio Analyzer
+                  </a>
+                </div>
+
+                {/* Waitlist Call to Action Section */}
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold mb-4">
+                    Ready to transform your trading?
+                  </h3>
+                  <p className="text-[#A8B8C5] mb-6 text-base md:text-lg max-w-2xl mx-auto">
+                    Get priority access to our institutional-grade trading platform. Join thousands of traders already using AI-powered strategies with proven risk management and regulatory compliance.
+                  </p>
+                  <a 
+                    href="https://refi.trading/waitlist"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-8 py-3 bg-neon-green hover:bg-[#3BC492] text-black rounded-lg font-semibold transition-all duration-300 ease-in-out"
+                  >
+                    Join Waitlist
+                  </a>
+                </div>
+
+                {/* Footer Section */}
                 <footer className="border-t border-card-stroke pt-12 mt-auto">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="md:col-span-1">
@@ -352,61 +408,6 @@ function App() {
 
                 {/* Value Proposition Section */}
 
-                {/* Performance Metrics Section */}
-                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold mb-6 text-neon-green">
-                    ReFinity© RL Agent Performance
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-neon-green">+2.07</div>
-                      <div className="text-blue-gray mt-1">Sharpe Ratio</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-neon-green">{'< 7.48%'}</div>
-                      <div className="text-blue-gray mt-1">Max Drawdown</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-neon-green">+28.06%</div>
-                      <div className="text-blue-gray mt-1">CAGR</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* The Evolution of Trading Section */}
-                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold mb-4">The Evolution of Trading</h3>
-                  <p className="text-[#A8B8C5] mb-6 text-base md:text-lg">
-                    Traditional trading relies on intuition and delayed data. Our provable AI agents execute trades with mathematical precision, backed by cryptographic proof systems that ensure every decision is verifiable and compliant.
-                  </p>
-                  <a 
-                    href="https://refi.trading/analyzer/index.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-6 py-3 bg-neon-green hover:bg-[#3BC492] text-black rounded-lg font-semibold transition-all duration-300 ease-in-out"
-                  >
-                    Launch Portfolio Analyzer
-                  </a>
-                </div>
-
-                {/* Waitlist Call to Action Section */}
-                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold mb-4">
-                    Ready to transform your trading?
-                  </h3>
-                  <p className="text-[#A8B8C5] mb-6 text-base md:text-lg max-w-2xl mx-auto">
-                    Get priority access to our institutional-grade trading platform. Join thousands of traders already using AI-powered strategies with proven risk management and regulatory compliance.
-                  </p>
-                  <a 
-                    href="https://refi.trading/waitlist"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-8 py-3 bg-neon-green hover:bg-[#3BC492] text-black rounded-lg font-semibold transition-all duration-300 ease-in-out"
-                  >
-                    Join Waitlist
-                  </a>
-                </div>
-                </footer>
               </div>
             ) : (
               <>
