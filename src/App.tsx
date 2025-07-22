@@ -383,7 +383,7 @@ function App() {
                   </div>
                   
                   <div className="border-t border-card-stroke mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                    <p className="text-sm text-blue-gray">© 2025 ReFi.Trading. All rights reserved.</p>
+                    <p className="text-sm text-blue-gray">© 2025 ReFi.Trading Inc. All rights reserved.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
                       <a href="#" className="text-sm text-blue-gray hover:text-neon-green transition-colors">SOC-2 Roadmap</a>
                       <a href="#" className="text-sm text-blue-gray hover:text-neon-green transition-colors">Quantstamp Audit Booked</a>
