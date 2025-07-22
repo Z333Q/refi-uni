@@ -185,40 +185,6 @@ function App() {
                   <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">The Evolution of Trading</h2>
                   
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Manual DIY Stack */}
-                    <div className="space-y-6">
-                      <h3 className="text-xl font-bold text-red-400 mb-6">Manual DIY Stack</h3>
-                      <div className="space-y-4">
-                        <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-red-400/20 flex items-center justify-center mt-1">
-                            <span className="text-red-400 text-sm">✕</span>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-red-400">Emotional Trading Decisions</h4>
-                            <p className="text-sm text-blue-gray">Subject to fear, greed, and behavioral biases</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-red-400/20 flex items-center justify-center mt-1">
-                            <span className="text-red-400 text-sm">✕</span>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-red-400">Inconsistent Risk Management</h4>
-                            <p className="text-sm text-blue-gray">Lack of systematic position sizing and drawdown control</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-red-400/20 flex items-center justify-center mt-1">
-                            <span className="text-red-400 text-sm">✕</span>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-red-400">Limited Market Coverage</h4>
-                            <p className="text-sm text-blue-gray">Unable to monitor and act on multiple markets 24/7</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
                     {/* Provable Agent Stack */}
                     <div className="space-y-6">
                       <h3 className="text-xl font-bold text-neon-green mb-6">Provable Agent Stack</h3>
@@ -248,6 +214,40 @@ function App() {
                           <div>
                             <h4 className="font-semibold text-neon-green">24/7 Multi-Market Coverage</h4>
                             <p className="text-sm text-blue-gray">Continuous monitoring across global markets and asset classes</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Manual DIY Stack */}
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-red-400 mb-6">Manual DIY Stack</h3>
+                      <div className="space-y-4">
+                        <div className="flex items-start space-x-3">
+                          <div className="w-6 h-6 rounded-full bg-red-400/20 flex items-center justify-center mt-1">
+                            <span className="text-red-400 text-sm">✕</span>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-red-400">Emotional Trading Decisions</h4>
+                            <p className="text-sm text-blue-gray">Subject to fear, greed, and behavioral biases</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-3">
+                          <div className="w-6 h-6 rounded-full bg-red-400/20 flex items-center justify-center mt-1">
+                            <span className="text-red-400 text-sm">✕</span>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-red-400">Inconsistent Risk Management</h4>
+                            <p className="text-sm text-blue-gray">Lack of systematic position sizing and drawdown control</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start space-x-3">
+                          <div className="w-6 h-6 rounded-full bg-red-400/20 flex items-center justify-center mt-1">
+                            <span className="text-red-400 text-sm">✕</span>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-red-400">Limited Market Coverage</h4>
+                            <p className="text-sm text-blue-gray">Unable to monitor and act on multiple markets 24/7</p>
                           </div>
                         </div>
                       </div>
