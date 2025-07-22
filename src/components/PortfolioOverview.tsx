@@ -40,7 +40,7 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
   const kpiCards = [
     {
       title: 'Total P&L',
-      value: `$${pnl.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+      value: `$${pnl.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       change: '+12.4%',
       trend: 'up',
       icon: TrendingUp
