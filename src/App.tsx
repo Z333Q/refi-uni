@@ -406,6 +406,7 @@ function App() {
                     Join Waitlist
                   </a>
                 </div>
+                </footer>
               </div>
             ) : (
               <>
