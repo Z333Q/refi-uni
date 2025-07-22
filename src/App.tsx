@@ -153,7 +153,7 @@ function App() {
                 </div>
 
                 {/* Performance Metrics Section */}
-                <div className="bg-card-bg border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
+                <div className="bg-card border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
                   <h3 className="text-xl md:text-2xl font-bold mb-6 text-neon-green">
                     ReFinity© RL Agent Performance
                   </h3>
@@ -174,7 +174,7 @@ function App() {
                 </div>
 
                 {/* The Evolution of Trading Section */}
-                <div className="bg-modal-bg/50 border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
+                <div className="bg-card border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
                   <h3 className="text-xl md:text-2xl font-bold mb-4">The Evolution of Trading</h3>
                   <p className="text-blue-gray mb-6 text-base md:text-lg">
                     Discover how provable AI agents revolutionize traditional trading approaches with zero-knowledge proofs and institutional-grade risk management.
@@ -185,7 +185,7 @@ function App() {
                 </div>
 
                 {/* Waitlist Call to Action Section */}
-                <div className="bg-blue-900/20 border border-blue-700 rounded-default p-6 md:p-8 shadow-card">
+                <div className="bg-card border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
                   <h3 className="text-xl md:text-2xl font-bold text-blue-300 mb-4">
                     Ready to transform your trading?
                   </h3>
