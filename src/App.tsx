@@ -102,7 +102,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-midnight-canvas text-snow-white">
+    <div className="min-h-screen bg-midnight-canvas text-snow-white flex flex-col">
       <div className="flex">
         {/* Conditional Sidebar - Only show when wallet is connected */}
         {isConnected && (
@@ -113,7 +113,7 @@ function App() {
             onClose={() => setSidebarOpen(false)}
           />
         )}
-        <div className={`flex-1 ${isConnected ? '' : 'ml-0'}`}>
+        <div className={`flex-1 ${isConnected ? '' : 'ml-0'} flex flex-col`}>
           <Header 
             isConnected={isConnected} 
             onConnect={handleConnect}
@@ -132,11 +132,11 @@ function App() {
             />
           )}
           
-          <main className="p-4 md:p-6">
+          <main className="p-4 md:p-6 flex-1">
             {!isConnected ? (
-              <div className="max-w-6xl mx-auto space-y-16 font-inter">
+              <div className="max-w-6xl mx-auto space-y-16 font-inter flex flex-col min-h-full">
                 {/* Hero Section */}
-                <div className="text-center space-y-8">
+                <div className="text-center space-y-8 flex-1 flex flex-col justify-center">
                   <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
                     Wall-Street AI in{' '}
                     <span className="text-neon-green">3 clicks</span>
@@ -253,7 +253,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </footer>
 
                 {/* Ready to Transform Section */}
                 <div className="text-center space-y-8">
@@ -284,7 +284,7 @@ function App() {
                 </div>
 
                 {/* Footer Section */}
-                <div className="border-t border-card-stroke pt-12">
+                <footer className="border-t border-card-stroke pt-12 mt-auto">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="md:col-span-1">
                       <div className="flex items-center space-x-3 mb-4">
