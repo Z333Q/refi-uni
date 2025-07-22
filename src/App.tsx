@@ -163,7 +163,7 @@ function App() {
                       <div className="text-gray-400 mt-1">Sharpe Ratio</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-[#43D4A0]">< 7.48%</div>
+                      <div className="text-2xl md:text-3xl font-bold text-[#43D4A0]">{'< 7.48%'}</div>
                       <div className="text-gray-400 mt-1">Max Drawdown</div>
                     </div>
                     <div className="text-center">
