@@ -349,7 +349,6 @@ function App() {
                       <a href="#" className="text-sm text-blue-gray hover:text-neon-green transition-colors">Quantstamp Audit Booked</a>
                     </div>
                   </div>
-                </div>
 
                 {/* Value Proposition Section */}
 
