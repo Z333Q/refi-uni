@@ -167,7 +167,12 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       
     } catch (error: any) {
       console.error('MetaMask connection error:', error);
-      setConnectionError(error.message || 'Failed to connect to MetaMask');
+      // Provide more informative error messages for common MetaMask issues
+      if (error.message === 'Failed to connect to MetaMask' || error.message.includes('Failed to connect')) {
+        setConnectionError('Unable to connect to MetaMask. Please ensure MetaMask is installed, unlocked, and try refreshing the page.');
+      } else {
+        setConnectionError(error.message || 'Failed to connect to MetaMask');
+      }
     } finally {
       setIsConnecting(false);
     }
