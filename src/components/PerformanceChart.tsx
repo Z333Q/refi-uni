@@ -92,6 +92,12 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
         height: height,
       });
 
+      // Validate chart instance before proceeding
+      if (!chart || typeof chart.addAreaSeries !== 'function') {
+        console.error('Invalid chart instance or addAreaSeries method not available');
+        return;
+      }
+
       // Create area series
       const areaSeries = chart.addAreaSeries({
         lineColor: '#43D4A0',
