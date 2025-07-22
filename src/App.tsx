@@ -164,7 +164,7 @@ function App() {
                 {/* Performance Metrics */}
                 <div className="space-y-6">
                   <h2 className="text-xl md:text-2xl font-bold text-center text-neon-green">
-                    ReFinity© RL Agent Performance
+                    ReFinity© RL Agent Performance Against 3Y Buy & Hold
                   </h2>
                   <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-center">
                     <div className="flex items-center space-x-2">
