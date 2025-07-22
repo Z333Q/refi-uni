@@ -1,3 +1,98 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ReFi.trading Design System Variables */
+:root {
+  --midnight-canvas: #0F181F;
+  --neon-green-accent: #43D4A0;
+  --bright-green-stroke: #43D4A0;
+  --snow-white-text: #F5F7FA;
+  --blue-gray-text: #A8B8C5;
+  --alert-red: #FF4C4C;
+  --card-bg: #121821;
+  --card-stroke: #1E2B3A;
+  --modal-bg: #1A2433;
+  --base-grid: 8px;
+  --default-radius: 8px;
+  --gutter: 24px;
+  --motion-curve: cubic-bezier(0.4, 0, 0.2, 1);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --neon-glow: 0 0 140px rgba(67, 212, 160, 0.2);
+}
+
+html {
+  color-scheme: dark;
+  background-color: var(--midnight-canvas);
+  color: var(--snow-white-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: var(--midnight-canvas);
+  color: var(--snow-white-text);
+  transition: background-color 0.3s var(--motion-curve), color 0.3s var(--motion-curve);
+}
+
+* {
+  border-color: var(--card-stroke);
+}
+
+/* Custom utility classes matching refi.trading */
+@layer utilities {
+  .bg-midnight-canvas {
+    background-color: var(--midnight-canvas);
+  }
+  
+  .bg-card {
+    background-color: var(--card-bg);
+  }
+  
+  .bg-modal {
+    background-color: var(--modal-bg);
+  }
+  
+  .text-snow-white {
+    color: var(--snow-white-text);
+  }
+  
+  .text-blue-gray {
+    color: var(--blue-gray-text);
+  }
+  
+  .text-neon-green {
+    color: var(--neon-green-accent);
+  }
+  
+  .bg-neon-green {
+    background-color: var(--neon-green-accent);
+  }
+  
+  .border-card-stroke {
+    border-color: var(--card-stroke);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--card-shadow);
+  }
+  
+  .glow-neon {
+    box-shadow: var(--neon-glow);
+  }
+  
+  .rounded-default {
+    border-radius: var(--default-radius);
+  }
+  
+  .transition-refi {
+    transition: all 0.3s var(--motion-curve);
+  }
+}

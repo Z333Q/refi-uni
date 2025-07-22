@@ -55,7 +55,7 @@ export function Sidebar({ activeTab, onTabChange, isOpen = true, onClose }: Side
       
       {/* Sidebar */}
       <div className={`
-        fixed md:static inset-y-0 left-0 z-50 w-64 bg-[#151B23] border-r border-gray-800 min-h-screen
+        fixed md:static inset-y-0 left-0 z-50 w-64 bg-card-bg border-r border-card-stroke min-h-screen
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0
@@ -84,8 +84,8 @@ export function Sidebar({ activeTab, onTabChange, isOpen = true, onClose }: Side
                 }}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
                   isActive 
-                    ? 'bg-[#43D4A0] text-black font-semibold' 
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                    ? 'bg-neon-green text-black font-semibold' 
+                    : 'text-blue-gray hover:bg-modal-bg hover:text-snow-white'
                 }`}
               >
                 <Icon className="h-5 w-5" />

@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onMenuToggle }: HeaderProps) {
   return (
-    <header className="bg-[#151B23] border-b border-gray-800">
+    <header className="bg-card-bg border-b border-card-stroke">
       <div className="px-6 py-4">
         {/* Top Row - Main Navigation */}
         <div className="flex items-center justify-between mb-3">
@@ -40,9 +40,9 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
             </div>
 
             {/* Network Status */}
-            <div className="hidden lg:flex items-center space-x-2 bg-[#43D4A0]/10 border border-[#43D4A0]/30 px-3 py-1.5 rounded-lg">
-              <div className="w-2 h-2 bg-[#43D4A0] rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-[#43D4A0]">NYSE/NASDAQ</span>
+            <div className="hidden lg:flex items-center space-x-2 bg-neon-green/10 border border-neon-green/30 px-3 py-1.5 rounded-default">
+              <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-neon-green">NYSE/NASDAQ</span>
             </div>
           </div>
           
@@ -51,12 +51,12 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
             {isConnected && (
               <>
                 {/* Wallet Info */}
-                <div className="hidden sm:flex items-center space-x-3 bg-gray-800/50 border border-gray-700 px-4 py-2 rounded-lg">
-                  <Wallet className="h-4 w-4 text-[#43D4A0]" />
-                  <span className="text-sm font-mono text-gray-300">0x8f2...a9c4</span>
+                <div className="hidden sm:flex items-center space-x-3 bg-modal-bg/50 border border-card-stroke px-4 py-2 rounded-default">
+                  <Wallet className="h-4 w-4 text-neon-green" />
+                  <span className="text-sm font-mono text-blue-gray">0x8f2...a9c4</span>
                   <button
                     onClick={onDisconnect}
-                    className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+                    className="p-1 text-blue-gray hover:text-alert-red transition-refi"
                     title="Disconnect"
                   >
                     <Power className="h-4 w-4" />
@@ -66,7 +66,7 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
                 {/* Deploy Agent Button */}
                 <button
                   onClick={onConnect}
-                  className="flex items-center space-x-2 bg-[#43D4A0] text-black px-3 md:px-4 py-2 rounded-lg font-medium hover:bg-[#3BC492] transition-colors text-sm md:text-base"
+                  className="flex items-center space-x-2 bg-neon-green text-black px-3 md:px-4 py-2 rounded-default font-medium hover:opacity-90 transition-refi text-sm md:text-base"
                 >
                   <Bot className="h-4 w-4" />
                   <span className="hidden sm:inline">Deploy Agent</span>
@@ -78,7 +78,7 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
             {!isConnected && (
               <button
                 onClick={onConnect}
-                className="flex items-center space-x-2 bg-[#43D4A0] text-black px-4 md:px-6 py-2 md:py-2.5 rounded-lg font-medium hover:bg-[#3BC492] transition-colors text-sm md:text-base"
+                className="flex items-center space-x-2 bg-neon-green text-black px-4 md:px-6 py-2 md:py-2.5 rounded-default font-medium hover:opacity-90 transition-refi text-sm md:text-base"
               >
                 <Wallet className="h-4 w-4" />
                 <span className="hidden sm:inline">Connect Wallet</span>
@@ -94,11 +94,11 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
             <div className="flex items-center space-x-3 sm:space-x-6">
               {/* Current Agent */}
               {currentAgent && (
-                <div className="flex items-center space-x-2 sm:space-x-3 bg-gray-800/30 border border-gray-700 px-2 sm:px-3 py-1.5 rounded-lg">
-                  <Bot className="h-4 w-4 text-[#43D4A0]" />
+                <div className="flex items-center space-x-2 sm:space-x-3 bg-modal-bg/30 border border-card-stroke px-2 sm:px-3 py-1.5 rounded-default">
+                  <Bot className="h-4 w-4 text-neon-green" />
                   <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
                     <span className="text-xs sm:text-sm font-medium">{currentAgent.name}</span>
-                    <span className="text-xs text-gray-400">{currentAgent.strategy}</span>
+                    <span className="text-xs text-blue-gray">{currentAgent.strategy}</span>
                   </div>
                 </div>
               )}
@@ -108,31 +108,31 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
             <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
               {/* System VaR */}
               <div className="flex items-center space-x-1 sm:space-x-2">
-                <Shield className="h-4 w-4 text-[#43D4A0]" />
-                <span className="text-gray-400 hidden sm:inline">System VaR:</span>
-                <span className="text-gray-400 sm:hidden">VaR:</span>
-                <span className="text-[#43D4A0] font-medium">0.127%</span>
-                <span className="text-xs text-gray-500 hidden sm:inline">(Safe)</span>
+                <Shield className="h-4 w-4 text-neon-green" />
+                <span className="text-blue-gray hidden sm:inline">System VaR:</span>
+                <span className="text-blue-gray sm:hidden">VaR:</span>
+                <span className="text-neon-green font-medium">0.127%</span>
+                <span className="text-xs text-blue-gray/70 hidden sm:inline">(Safe)</span>
               </div>
 
               {/* Agent VaR */}
               {currentAgent && (
                 <div className="flex items-center space-x-1 sm:space-x-2">
                   <div className={`w-3 h-3 rounded-full ${
-                    currentAgent.varStatus > 0.8 ? 'bg-red-500 animate-pulse' : 'bg-[#43D4A0]'
+                    currentAgent.varStatus > 0.8 ? 'bg-alert-red animate-pulse' : 'bg-neon-green'
                   }`}></div>
-                  <span className="text-gray-400 hidden sm:inline">Agent VaR:</span>
-                  <span className="text-gray-400 sm:hidden">Agent:</span>
+                  <span className="text-blue-gray hidden sm:inline">Agent VaR:</span>
+                  <span className="text-blue-gray sm:hidden">Agent:</span>
                   <span className={`font-medium ${
-                    currentAgent.varStatus > 0.8 ? 'text-red-400' : 'text-[#43D4A0]'
+                    currentAgent.varStatus > 0.8 ? 'text-alert-red' : 'text-neon-green'
                   }`}>
                     {(currentAgent.varStatus * 100).toFixed(3)}%
                   </span>
                   {currentAgent.varStatus > 0.8 && (
                     <div className="flex items-center space-x-1">
-                      <AlertTriangle className="h-3 w-3 text-red-400" />
-                      <span className="text-xs text-red-400 font-medium hidden sm:inline">HIGH RISK</span>
-                      <span className="text-xs text-red-400 font-medium sm:hidden">HIGH</span>
+                      <AlertTriangle className="h-3 w-3 text-alert-red" />
+                      <span className="text-xs text-alert-red font-medium hidden sm:inline">HIGH RISK</span>
+                      <span className="text-xs text-alert-red font-medium sm:hidden">HIGH</span>
                     </div>
                   )}
                 </div>
@@ -141,9 +141,9 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
               {/* Broker Status */}
               {currentAgent && (
                 <div className="hidden md:flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-[#43D4A0] rounded-full"></div>
-                  <span className="text-gray-400">Broker:</span>
-                  <span className="text-[#43D4A0] font-medium">Connected</span>
+                  <div className="w-2 h-2 bg-neon-green rounded-full"></div>
+                  <span className="text-blue-gray">Broker:</span>
+                  <span className="text-neon-green font-medium">Connected</span>
                 </div>
               )}
             </div>
