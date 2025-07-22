@@ -22,17 +22,24 @@ interface SidebarProps {
 }
 
 const menuItems = [
+  // PRIMARY TRADING FUNCTIONS (Most frequently used)
   { id: 'portfolio' as TabType, label: 'Portfolio', icon: TrendingUp },
-  { id: 'basket' as TabType, label: 'Baskets', icon: PieChart },
   { id: 'trades' as TabType, label: 'Trade Stream', icon: Activity },
-  { id: 'proofs' as TabType, label: 'Proof Explorer', icon: Shield },
+  { id: 'basket' as TabType, label: 'Baskets', icon: PieChart },
+  
+  // RISK & MONITORING (Critical operational tools)
   { id: 'risk' as TabType, label: 'Risk Monitor', icon: AlertTriangle },
-  { id: 'tokenomics' as TabType, label: 'Tokenomics', icon: Coins },
-  { id: 'wallet' as TabType, label: 'Wallet & Staking', icon: Wallet },
-  { id: 'settings' as TabType, label: 'Settings', icon: SettingsIcon },
+  { id: 'proofs' as TabType, label: 'Proof Explorer', icon: Shield },
   { id: 'alerts' as TabType, label: 'Alerts', icon: Bell },
+  
+  // FINANCIAL MANAGEMENT (User assets and platform economics)
+  { id: 'wallet' as TabType, label: 'Wallet & Staking', icon: Wallet },
+  { id: 'tokenomics' as TabType, label: 'Tokenomics', icon: Coins },
+  
+  // ADMINISTRATIVE & COMPLIANCE (Less frequent, specialized functions)
   { id: 'compliance' as TabType, label: 'Compliance', icon: FileCheck },
   { id: 'guardian' as TabType, label: 'Guardian', icon: UserCheck },
+  { id: 'settings' as TabType, label: 'Settings', icon: SettingsIcon },
 ];
 
 export function Sidebar({ activeTab, onTabChange, isOpen = true, onClose }: SidebarProps) {
