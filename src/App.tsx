@@ -352,34 +352,6 @@ function App() {
                 </div>
 
                 {/* Value Proposition Section */}
-                {/*
-                <div className="space-y-6">
-                  <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-neon-green to-blue-400 bg-clip-text text-transparent">
-                    Wall Street AI in 3 Clicks
-                  </h2>
-                  <p className="text-lg md:text-xl text-blue-gray max-w-3xl mx-auto leading-relaxed">
-                    Deploy institutional-grade trading algorithms with zero-knowledge proof verification. Advanced risk management meets accessible automation for serious traders.
-                  </p>
-                  
-                  {/* Primary CTA */}
-                  <button
-                    onClick={handleConnect}
-                    className="bg-neon-green text-black px-8 py-4 rounded-default font-semibold text-lg hover:bg-[#3BC492] transition-refi transform hover:scale-105 shadow-card hover:glow-neon"
-                  >
-                    Connect Wallet
-                  </button>
-                  
-                  Secondary CTAs
-                  <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                    <button className="px-6 py-3 bg-card-bg hover:bg-modal-bg text-snow-white rounded-default font-medium transition-refi border border-card-stroke hover:border-neon-green">
-                      Launch Portfolio Analyzer
-                    </button>
-                    <button className="px-6 py-3 bg-card-bg hover:bg-modal-bg text-snow-white rounded-default font-medium transition-refi border border-card-stroke hover:border-neon-green">
-                      Watch Live Trading
-                    </button>
-                  </div>
-                </div>
-                */}
 
                 {/* Performance Metrics Section */}
                 <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
