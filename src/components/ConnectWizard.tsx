@@ -16,6 +16,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const [apiKeys, setApiKeys] = useState<Record<string, string>>({});
   const [apiKeyErrors, setApiKeyErrors] = useState<Record<string, string>>({});
   const [testingConnection, setTestingConnection] = useState(false);
+  const [visibleKeys, setVisibleKeys] = useState<Set<string>>(new Set());
   const [gasEstimate] = useState('$2.34');
   const [connectionError, setConnectionError] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
@@ -75,6 +76,16 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       risk: 'Very Low'
     },
   ];
+
+  const toggleKeyVisibility = (keyId: string) => {
+    const newVisible = new Set(visibleKeys);
+    if (newVisible.has(keyId)) {
+      newVisible.delete(keyId);
+    } else {
+      newVisible.add(keyId);
+    }
+    setVisibleKeys(newVisible);
+  };
 
   const connectToMetaMask = async () => {
     setConnectionError('');
@@ -149,9 +160,12 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     } else if (step === 2 && selectedBroker) {
       // Move to API key input step
       setStep(3);
-    } else if (step === 3) {
+    } else if (step === 3 && selectedBroker) {
       // Test API connection
       testApiConnection();
+    } else if (step === 3 && !selectedBroker) {
+      // Skip API setup, go to strategy selection
+      setStep(4);
     } else if (step < 6) {
       setStep(step + 1);
     } else {
@@ -176,7 +190,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const canProceed = () => {
     if (step === 1) return selectedWallet && !isConnecting;
     if (step === 2) return selectedBroker;
-    if (step === 3) return selectedBroker && !testingConnection;
+    if (step === 3) return !testingConnection; // Allow proceeding even without API keys
     if (step === 4) return selectedTemplate;
     if (step === 5) return agentName.trim().length > 0;
     if (step === 6) return true;
@@ -214,8 +228,8 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           <div className="mt-4 text-xs md:text-sm text-gray-400">
             Step {step} of 6: {
               step === 1 ? (isAdditionalAgent ? 'Verify Wallet' : 'Connect Wallet') : 
-              step === 2 ? 'Select Broker' : 
-              step === 3 ? 'API Configuration' :
+              step === 2 ? 'Select Broker' :
+              step === 3 ? 'Connect Broker' :
               step === 4 ? 'Choose Strategy' : 
               step === 5 ? 'Configure Agent' :
               'Confirm Deployment'
@@ -303,6 +317,187 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
 
         {step === 3 && (
           <div>
+            <h3 className="text-base md:text-lg font-semibold mb-2">Connect Your Broker</h3>
+            <p className="text-sm text-gray-400 mb-6">
+              Securely connect to {brokers.find(b => b.id === selectedBroker)?.name} to enable automated trading
+            </p>
+            
+            {/* Progress Indicator */}
+            <div className="mb-6 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                <div>
+                  <p className="text-blue-300 font-medium">API Configuration</p>
+                  <p className="text-blue-200 text-sm">This step takes most users 2-3 minutes</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Broker-specific instructions */}
+            {selectedBroker && (
+              <div className="mb-6 bg-gray-800/30 border border-gray-700 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-3">
+                  <span className="text-2xl">{brokers.find(b => b.id === selectedBroker)?.icon}</span>
+                  <h4 className="font-semibold">Setting up {brokers.find(b => b.id === selectedBroker)?.name}</h4>
+                </div>
+                
+                <div className="space-y-3 text-sm">
+                  {selectedBroker === 'alpaca' && (
+                    <>
+                      <div className="flex items-start space-x-2">
+                        <span className="w-5 h-5 bg-[#43D4A0] rounded-full flex items-center justify-center text-xs font-bold text-black mt-0.5">1</span>
+                        <p>Log into your Alpaca account and go to <strong>Paper Trading → API Keys</strong></p>
+                      </div>
+                      <div className="flex items-start space-x-2">
+                        <span className="w-5 h-5 bg-[#43D4A0] rounded-full flex items-center justify-center text-xs font-bold text-black mt-0.5">2</span>
+                        <p>Click <strong>"Generate New Key"</strong> and enable <strong>Trading permissions</strong></p>
+                      </div>
+                      <div className="flex items-start space-x-2">
+                        <span className="w-5 h-5 bg-[#43D4A0] rounded-full flex items-center justify-center text-xs font-bold text-black mt-0.5">3</span>
+                        <p>Copy both the <strong>Key ID</strong> and <strong>Secret Key</strong> below</p>
+                      </div>
+                    </>
+                  )}
+                  
+                  {selectedBroker === 'tradier' && (
+                    <>
+                      <div className="flex items-start space-x-2">
+                        <span className="w-5 h-5 bg-[#43D4A0] rounded-full flex items-center justify-center text-xs font-bold text-black mt-0.5">1</span>
+                        <p>Go to <strong>My Account → API Access</strong> in your Tradier dashboard</p>
+                      </div>
+                      <div className="flex items-start space-x-2">
+                        <span className="w-5 h-5 bg-[#43D4A0] rounded-full flex items-center justify-center text-xs font-bold text-black mt-0.5">2</span>
+                        <p>Create a new <strong>Sandbox Access Token</strong> for testing</p>
+                      </div>
+                      <div className="flex items-start space-x-2">
+                        <span className="w-5 h-5 bg-[#43D4A0] rounded-full flex items-center justify-center text-xs font-bold text-black mt-0.5">3</span>
+                        <p>Copy the generated token and paste it below</p>
+                      </div>
+                    </>
+                  )}
+                  
+                  <div className="mt-3 pt-3 border-t border-gray-600">
+                    <a
+                      href={brokerConfigs.find(b => b.id === selectedBroker)?.docsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 text-[#43D4A0] hover:text-[#3BC492] text-sm"
+                    >
+                      <span>📖 Detailed setup guide</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* API Key Form */}
+            <div className="space-y-4">
+              {selectedBroker && brokerApiFields[selectedBroker]?.map((field, index) => (
+                <div key={field.label}>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    {field.label}
+                    <span className="text-red-400 ml-1">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={visibleKeys.has(field.label) ? 'text' : field.type}
+                      value={apiKeys[field.label] || ''}
+                      onChange={(e) => {
+                        setApiKeys(prev => ({ ...prev, [field.label]: e.target.value }));
+                        // Clear error when user starts typing
+                        if (apiKeyErrors[field.label]) {
+                          setApiKeyErrors(prev => ({ ...prev, [field.label]: '' }));
+                        }
+                      }}
+                      className={`w-full bg-gray-800 border rounded-lg px-3 py-2 pr-10 focus:outline-none transition-colors ${
+                        apiKeyErrors[field.label] 
+                          ? 'border-red-500 focus:border-red-400' 
+                          : 'border-gray-700 focus:border-[#43D4A0]'
+                      }`}
+                      placeholder={field.placeholder}
+                    />
+                    {field.type === 'password' && (
+                      <button
+                        type="button"
+                        onClick={() => toggleKeyVisibility(field.label)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                      >
+                        {visibleKeys.has(field.label) ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    )}
+                  </div>
+                  {apiKeyErrors[field.label] && (
+                    <p className="text-red-400 text-xs mt-1 flex items-center space-x-1">
+                      <AlertTriangle className="h-3 w-3" />
+                      <span>{apiKeyErrors[field.label]}</span>
+                    </p>
+                  )}
+                </div>
+              ))}
+              
+              {/* Environment Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Environment
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setApiKeys(prev => ({ ...prev, environment: 'sandbox' }))}
+                    className={`p-3 rounded-lg border text-left transition-colors ${
+                      (apiKeys.environment || 'sandbox') === 'sandbox'
+                        ? 'border-[#43D4A0] bg-[#43D4A0]/10'
+                        : 'border-gray-700 hover:border-gray-600'
+                    }`}
+                  >
+                    <div className="font-medium text-sm">Sandbox</div>
+                    <div className="text-xs text-gray-400">Safe testing environment</div>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setApiKeys(prev => ({ ...prev, environment: 'live' }))}
+                    className={`p-3 rounded-lg border text-left transition-colors ${
+                      apiKeys.environment === 'live'
+                        ? 'border-red-500 bg-red-900/10'
+                        : 'border-gray-700 hover:border-gray-600'
+                    }`}
+                  >
+                    <div className="font-medium text-sm">Live Trading</div>
+                    <div className="text-xs text-gray-400">Real money trading</div>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Security Notice */}
+            <div className="mt-6 p-4 bg-green-900/20 border border-green-700 rounded-lg">
+              <div className="flex items-start space-x-3">
+                <Shield className="h-5 w-5 text-green-400 mt-0.5" />
+                <div className="text-sm">
+                  <p className="text-green-300 font-medium">🔒 Your API keys are secure</p>
+                  <p className="text-green-200 mt-1">
+                    Keys are encrypted with AES-256 and stored securely. We never store them in plain text 
+                    and they're only used for authorized trading operations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Skip Option */}
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setStep(4)}
+                className="text-sm text-gray-400 hover:text-white underline"
+              >
+                Skip for now - I'll add API keys later in Settings
+              </button>
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div>
             <h3 className="text-base md:text-lg font-semibold mb-4">Choose Strategy Template</h3>
             <div className="space-y-4">
               {templates.map((template) => (
@@ -335,7 +530,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div>
             <h3 className="text-base md:text-lg font-semibold mb-4">Configure Agent</h3>
             <div className="space-y-4">
@@ -378,7 +573,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
         )}
 
-        {step === 5 && (
+        {step === 6 && (
           <div>
             <h3 className="text-base md:text-lg font-semibold mb-4">Confirm Deployment</h3>
             <div className="bg-gray-800 rounded-lg p-4 space-y-3">
@@ -439,6 +634,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
             <span>
               {isConnecting && step === 1 ? 'Connecting...' :
                testingConnection && step === 3 ? 'Testing Connection...' :
+               step === 3 ? 'Continue' :
                step === 6 ? 'Deploy Agent' : 'Continue'}
             </span>
             <ChevronRight className="h-4 w-4" />
