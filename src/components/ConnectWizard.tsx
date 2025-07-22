@@ -436,8 +436,9 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
             }`}
           >
             <span>
-              {isConnecting && step === 1 ? 'Connecting...' : 
-               step === 5 ? 'Deploy Agent' : 'Continue'}
+              {isConnecting && step === 1 ? 'Connecting...' :
+               testingConnection && step === 3 ? 'Testing Connection...' :
+               step === 6 ? 'Deploy Agent' : 'Continue'}
             </span>
             <ChevronRight className="h-4 w-4" />
           </button>

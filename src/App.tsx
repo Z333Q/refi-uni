@@ -49,7 +49,7 @@ function App() {
     }
   };
 
-  const handleWizardComplete = (agentData: { name: string; strategy: string }) => {
+  const handleWizardComplete = (agentData: { name: string; strategy: string; brokerId: string; apiKeys: Record<string, string> }) => {
     const newAgent: TradingAgent = {
       id: `agent_${Date.now()}`,
       name: agentData.name,
@@ -59,7 +59,9 @@ function App() {
       totalValue: 0,
       pnl: 0,
       varStatus: 0.05,
-      baskets: 1
+      baskets: 1,
+      brokerId: agentData.brokerId,
+      brokerConnected: true
     };
     
     setAgents(prev => [...prev, newAgent]);
