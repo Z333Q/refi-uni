@@ -127,16 +127,16 @@ function App() {
                 {/* Value Proposition Section */}
                 <div className="space-y-6">
                   <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-neon-green to-blue-400 bg-clip-text text-transparent">
-                    Wall-Street AI in 3 Clicks
+                    Wall Street AI in 3 Clicks
                   </h2>
                   <p className="text-lg md:text-xl text-blue-gray max-w-3xl mx-auto leading-relaxed">
-                    Algorithmic trading powered by provable AI agents, designed for both retail and institutional investors.
+                    Deploy institutional-grade trading algorithms with zero-knowledge proof verification. Advanced risk management meets accessible automation for serious traders.
                   </p>
                   
                   {/* Primary CTA */}
                   <button
                     onClick={handleConnect}
-                    className="bg-neon-green text-black px-8 py-4 rounded-default font-bold text-lg hover:opacity-90 transition-refi transform hover:scale-105 shadow-card hover:glow-neon"
+                    className="bg-neon-green text-black px-8 py-4 rounded-default font-semibold text-lg hover:bg-[#3BC492] transition-refi transform hover:scale-105 shadow-card hover:glow-neon"
                   >
                     Connect Wallet
                   </button>
@@ -144,7 +144,7 @@ function App() {
                   {/* Secondary CTAs */}
                   <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
                     <button className="px-6 py-3 bg-card-bg hover:bg-modal-bg text-snow-white rounded-default font-medium transition-refi border border-card-stroke hover:border-neon-green">
-                      Launch ROI Simulator
+                      Launch Portfolio Analyzer
                     </button>
                     <button className="px-6 py-3 bg-card-bg hover:bg-modal-bg text-snow-white rounded-default font-medium transition-refi border border-card-stroke hover:border-neon-green">
                       Watch Live Trading
@@ -177,10 +177,16 @@ function App() {
                 <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-4">The Evolution of Trading</h3>
                   <p className="text-[#A8B8C5] mb-6 text-base md:text-lg">
-                    Discover how provable AI agents revolutionize traditional trading approaches with zero-knowledge proofs and institutional-grade risk management.
+                    Traditional trading relies on intuition and delayed data. Our provable AI agents execute trades with mathematical precision, backed by cryptographic proof systems that ensure every decision is verifiable and compliant.
                   </p>
-                  <button className="px-6 py-3 bg-[#43D4A0] hover:bg-[#3BC492] text-black rounded-lg font-medium transition-all duration-300 ease-in-out">
-                    View Comparison Table
+                  <a 
+                    href="https://refi.trading/analyzer/index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-6 py-3 bg-neon-green hover:bg-[#3BC492] text-black rounded-lg font-semibold transition-all duration-300 ease-in-out"
+                  >
+                    Launch Portfolio Analyzer
+                  </a>
                   </button>
                 </div>
 
@@ -190,11 +196,16 @@ function App() {
                     Ready to transform your trading?
                   </h3>
                   <p className="text-[#A8B8C5] mb-6 text-base md:text-lg max-w-2xl mx-auto">
-                    Join our waitlist for early access to our beta program and be among the first to experience the future of algorithmic trading.
+                    Get priority access to our institutional-grade trading platform. Join thousands of traders already using AI-powered strategies with proven risk management and regulatory compliance.
                   </p>
-                  <button className="px-8 py-3 bg-[#43D4A0] hover:bg-[#3BC492] text-black rounded-lg font-bold transition-all duration-300 ease-in-out">
+                  <a 
+                    href="https://refi.trading/waitlist"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-8 py-3 bg-neon-green hover:bg-[#3BC492] text-black rounded-lg font-semibold transition-all duration-300 ease-in-out"
+                  >
                     Join Waitlist
-                  </button>
+                  </a>
                 </div>
               </div>
             ) : (
