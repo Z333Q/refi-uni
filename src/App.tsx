@@ -184,22 +184,6 @@ function App() {
                     </div>
                   </div>
                 </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-neon-green rounded-full"></div>
-                    <span className="text-blue-gray">ReFinity© RL Agent Sharpe</span>
-                    <span className="text-neon-green font-bold">+2.07</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                    <span className="text-blue-gray">Max DD</span>
-                    <span className="text-red-400 font-bold">-7.48%</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-neon-green rounded-full"></div>
-                    <span className="text-blue-gray">CAGR</span>
-                    <span className="text-neon-green font-bold">+28.06%</span>
-                  </div>
-                </div>
 
                 {/* The Evolution of Trading Section */}
                 <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-8 md:p-12">
