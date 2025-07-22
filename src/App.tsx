@@ -187,7 +187,6 @@ function App() {
                   >
                     Launch Portfolio Analyzer
                   </a>
-                  </button>
                 </div>
 
                 {/* Waitlist Call to Action Section */}
