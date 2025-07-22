@@ -352,7 +352,8 @@ function App() {
                 </div>
 
                 {/* Value Proposition Section */}
-                {/* <div className="space-y-6">
+                {/*
+                <div className="space-y-6">
                   <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-neon-green to-blue-400 bg-clip-text text-transparent">
                     Wall Street AI in 3 Clicks
                   </h2>
@@ -368,7 +369,7 @@ function App() {
                     Connect Wallet
                   </button>
                   
-                  {/* Secondary CTAs */}
+                  Secondary CTAs
                   <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
                     <button className="px-6 py-3 bg-card-bg hover:bg-modal-bg text-snow-white rounded-default font-medium transition-refi border border-card-stroke hover:border-neon-green">
                       Launch Portfolio Analyzer
@@ -377,7 +378,8 @@ function App() {
                       Watch Live Trading
                     </button>
                   </div>
-                </div> */
+                </div>
+                */}
 
                 {/* Performance Metrics Section */}
                 <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
