@@ -253,7 +253,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                </footer>
+                </div>
 
                 {/* Ready to Transform Section */}
                 <div className="text-center space-y-8">
