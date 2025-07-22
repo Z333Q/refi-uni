@@ -377,10 +377,10 @@ function App() {
                       Watch Live Trading
                     </button>
                   </div>
-                </div> */}
+                </div> */
 
                 {/* Performance Metrics Section */}
-                {/* <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-6 text-neon-green">
                     ReFinity© RL Agent Performance
                   </h3>
@@ -398,10 +398,10 @@ function App() {
                       <div className="text-blue-gray mt-1">CAGR</div>
                     </div>
                   </div>
-                </div> */}
+                </div>
 
                 {/* The Evolution of Trading Section */}
-                {/* <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-4">The Evolution of Trading</h3>
                   <p className="text-[#A8B8C5] mb-6 text-base md:text-lg">
                     Traditional trading relies on intuition and delayed data. Our provable AI agents execute trades with mathematical precision, backed by cryptographic proof systems that ensure every decision is verifiable and compliant.
@@ -414,10 +414,10 @@ function App() {
                   >
                     Launch Portfolio Analyzer
                   </a>
-                </div> */}
+                </div>
 
                 {/* Waitlist Call to Action Section */}
-                {/* <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-4">
                     Ready to transform your trading?
                   </h3>
@@ -432,7 +432,7 @@ function App() {
                   >
                     Join Waitlist
                   </a>
-                </div> */}
+                </div>
               </div>
             ) : (
               <>
