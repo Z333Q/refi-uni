@@ -110,11 +110,49 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       setIsConnecting(false);
     }
   };
+  
+  const testApiConnection = async () => {
+    if (!selectedBroker) return;
+    
+    setTestingConnection(true);
+    setApiKeyErrors({});
+    
+    try {
+      // Simulate API validation
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Simulate validation results
+      const fields = brokerApiFields[selectedBroker] || [];
+      const missingFields = fields.filter(field => !apiKeys[field.label]);
+      
+      if (missingFields.length > 0) {
+        const errors: Record<string, string> = {};
+        missingFields.forEach(field => {
+          errors[field.label] = 'This field is required';
+        });
+        setApiKeyErrors(errors);
+        throw new Error('Missing required fields');
+      }
+      
+      // Success - move to next step
+      setStep(step + 1);
+    } catch (error) {
+      console.error('API connection test failed:', error);
+    } finally {
+      setTestingConnection(false);
+    }
+  };
 
   const handleNext = () => {
     if (step === 1 && selectedWallet === 'metamask' && !isAdditionalAgent) {
       connectToMetaMask();
-    } else if (step < 5) {
+    } else if (step === 2 && selectedBroker) {
+      // Move to API key input step
+      setStep(3);
+    } else if (step === 3) {
+      // Test API connection
+      testApiConnection();
+    } else if (step < 6) {
       setStep(step + 1);
     } else {
       const selectedTemplateData = templates.find(t => t.id === selectedTemplate);
@@ -138,9 +176,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
   const canProceed = () => {
     if (step === 1) return selectedWallet && !isConnecting;
     if (step === 2) return selectedBroker;
-    if (step === 3) return selectedTemplate;
-    if (step === 4) return agentName.trim().length > 0;
-    if (step === 5) return true;
+    if (step === 3) return selectedBroker && !testingConnection;
+    if (step === 4) return selectedTemplate;
+    if (step === 5) return agentName.trim().length > 0;
+    if (step === 6) return true;
     return false;
   };
 
@@ -156,14 +195,14 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
           
           <div className="flex items-center space-x-2 md:space-x-4 overflow-x-auto pb-2">
-            {[1, 2, 3, 4, 5].map((i) => (
+            {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="flex items-center">
                 <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-medium flex-shrink-0 ${
                   i <= step ? 'bg-[#43D4A0] text-black' : 'bg-gray-700 text-gray-400'
                 }`}>
                   {i < step ? <CheckCircle className="h-3 w-3 md:h-5 md:w-5" /> : i}
                 </div>
-                {i < 5 && (
+                {i < 6 && (
                   <div className={`w-8 md:w-16 h-1 mx-1 md:mx-2 flex-shrink-0 ${
                     i < step ? 'bg-[#43D4A0]' : 'bg-gray-700'
                   }`} />
@@ -173,11 +212,12 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
           
           <div className="mt-4 text-xs md:text-sm text-gray-400">
-            Step {step} of 5: {
+            Step {step} of 6: {
               step === 1 ? (isAdditionalAgent ? 'Verify Wallet' : 'Connect Wallet') : 
               step === 2 ? 'Select Broker' : 
-              step === 3 ? 'Choose Strategy' : 
-              step === 4 ? 'Configure Agent' :
+              step === 3 ? 'API Configuration' :
+              step === 4 ? 'Choose Strategy' : 
+              step === 5 ? 'Configure Agent' :
               'Confirm Deployment'
             }
           </div>
