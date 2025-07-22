@@ -153,7 +153,7 @@ function App() {
                 </div>
 
                 {/* Performance Metrics Section */}
-                <div className="bg-card border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-6 text-neon-green">
                     ReFinity© RL Agent Performance
                   </h3>
@@ -174,25 +174,25 @@ function App() {
                 </div>
 
                 {/* The Evolution of Trading Section */}
-                <div className="bg-card border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-4">The Evolution of Trading</h3>
-                  <p className="text-blue-gray mb-6 text-base md:text-lg">
+                  <p className="text-[#A8B8C5] mb-6 text-base md:text-lg">
                     Discover how provable AI agents revolutionize traditional trading approaches with zero-knowledge proofs and institutional-grade risk management.
                   </p>
-                  <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-snow-white rounded-default font-medium transition-refi">
+                  <button className="px-6 py-3 bg-[#43D4A0] hover:bg-[#3BC492] text-black rounded-lg font-medium transition-all duration-300 ease-in-out">
                     View Comparison Table
                   </button>
                 </div>
 
                 {/* Waitlist Call to Action Section */}
-                <div className="bg-card border border-card-stroke rounded-default p-6 md:p-8 shadow-card">
-                  <h3 className="text-xl md:text-2xl font-bold text-blue-300 mb-4">
+                <div className="bg-[#121821] border border-[#1E2B3A] rounded-lg p-6 md:p-8">
+                  <h3 className="text-xl md:text-2xl font-bold text-[#43D4A0] mb-4">
                     Ready to transform your trading?
                   </h3>
-                  <p className="text-blue-200 mb-6 text-base md:text-lg max-w-2xl mx-auto">
+                  <p className="text-[#A8B8C5] mb-6 text-base md:text-lg max-w-2xl mx-auto">
                     Join our waitlist for early access to our beta program and be among the first to experience the future of algorithmic trading.
                   </p>
-                  <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-snow-white rounded-default font-bold transition-refi">
+                  <button className="px-8 py-3 bg-[#43D4A0] hover:bg-[#3BC492] text-black rounded-lg font-bold transition-all duration-300 ease-in-out">
                     Join Waitlist
                   </button>
                 </div>
