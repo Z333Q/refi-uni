@@ -7,7 +7,7 @@ interface HeaderProps {
   onConnect: () => void;
   onDisconnect: () => void;
   currentAgent?: TradingAgent;
-  onMenuToggle?: () => void;
+  onMenuToggle?: () => void; // Optional - only available when wallet is connected
 }
 
 export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onMenuToggle }: HeaderProps) {
@@ -18,12 +18,15 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-3 md:space-x-6">
             {/* Mobile Menu Button */}
-            <button
-              onClick={onMenuToggle}
-              className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
+            {/* Mobile Menu Button - Only show when wallet is connected */}
+            {isConnected && onMenuToggle && (
+              <button
+                onClick={onMenuToggle}
+                className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+            )}
             
             {/* Logo & Title */}
             <div className="flex items-center space-x-3">

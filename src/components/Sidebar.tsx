@@ -45,7 +45,7 @@ const menuItems = [
 export function Sidebar({ activeTab, onTabChange, isOpen = true, onClose }: SidebarProps) {
   return (
     <>
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay - Only show when sidebar is open */}
       {isOpen && (
         <div 
           className="md:hidden fixed inset-0 bg-black/50 z-40"
@@ -54,11 +54,12 @@ export function Sidebar({ activeTab, onTabChange, isOpen = true, onClose }: Side
       )}
       
       {/* Sidebar */}
+      {/* Sidebar with smooth transitions for wallet connection state changes */}
       <div className={`
         fixed md:static inset-y-0 left-0 z-50 w-64 bg-card-bg border-r border-card-stroke min-h-screen
-        transform transition-transform duration-300 ease-in-out
+        transform transition-all duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:translate-x-0
+        md:translate-x-0 opacity-100
       `}>
       <div className="p-6">
         <div className="flex items-center space-x-3 mb-8">

@@ -49,6 +49,13 @@ function App() {
     }
   };
 
+  // Handle wallet disconnection - hide sidebar and reset state
+  const handleDisconnect = () => {
+    setIsConnected(false);
+    setSidebarOpen(false); // Close sidebar when wallet disconnects
+    setActiveAgent(null); // Clear active agent
+    setAgents([]); // Clear all agents
+  };
   const handleWizardComplete = (agentData: { name: string; strategy: string; brokerId: string; apiKeys: Record<string, string> }) => {
     const newAgent: TradingAgent = {
       id: `agent_${Date.now()}`,
@@ -97,21 +104,25 @@ function App() {
   return (
     <div className="min-h-screen bg-midnight-canvas text-snow-white">
       <div className="flex">
-        <Sidebar 
-          activeTab={activeTab} 
-          onTabChange={setActiveTab}
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-        />
-        <div className="flex-1">
+        {/* Conditional Sidebar - Only show when wallet is connected */}
+        {isConnected && (
+          <Sidebar 
+            activeTab={activeTab} 
+            onTabChange={setActiveTab}
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+          />
+        )}
+        <div className={`flex-1 ${isConnected ? '' : 'ml-0'}`}>
           <Header 
             isConnected={isConnected} 
             onConnect={handleConnect}
-            onDisconnect={() => setIsConnected(false)}
+            onDisconnect={handleDisconnect}
             currentAgent={currentAgent}
-            onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
+            onMenuToggle={isConnected ? () => setSidebarOpen(!sidebarOpen) : undefined}
           />
           
+          {/* Agent Selector - Only show when wallet is connected and agents exist */}
           {isConnected && agents.length > 0 && (
             <AgentSelector
               agents={agents}
