@@ -371,7 +371,7 @@ function App() {
                     onClick={handleConnect}
                     className="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
                   >
-                    Launch Portfolio Analyzer
+                    Connect Wallet
                   </button>
                   <button className="border border-neon-green text-neon-green hover:bg-neon-green hover:text-black px-8 py-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center">
                     <Play className="mr-2 w-5 h-5" />
