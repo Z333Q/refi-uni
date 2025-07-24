@@ -486,13 +486,9 @@ function App() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button 
-                  onClick={handleConnect}
                   className="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-3 rounded-lg font-semibold transition-all duration-200"
                 >
-                  Connect Wallet
-                </button>
-                <button className="border border-card-stroke text-gray-300 hover:bg-card-bg hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200">
-                  Try ROI Simulator
+                  Launch Portfolio Analyzer
                 </button>
               </div>
             </div>
@@ -524,7 +520,7 @@ function App() {
                 <div>
                   <h3 className="text-white font-semibold mb-4">Products</h3>
                   <ul className="space-y-2 text-gray-400">
-                    <li><a href="#" className="hover:text-neon-green transition-colors">ROI Simulator</a></li>
+                    <li><a href="#" className="hover:text-neon-green transition-colors">Portfolio Analyzer</a></li>
                     <li><a href="#" className="hover:text-neon-green transition-colors">Agent Marketplace</a></li>
                     <li><a href="#" className="hover:text-neon-green transition-colors">Live Trading Feed</a></li>
                   </ul>
