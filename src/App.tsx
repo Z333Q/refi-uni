@@ -25,7 +25,7 @@ import { AgentSelector } from './components/AgentSelector';
 import ConnectWizard from './components/ConnectWizard';
 import ProofExplorer from './components/ProofExplorer';
 import WalletStaking from './components/WalletStaking';
-import AlertsSettings from './components/AlertsSettings';
+import { AlertsSettings } from './components/AlertsSettings';
 import ComplianceAudit from './components/ComplianceAudit';
 import GuardianConsole from './components/GuardianConsole';
 import TokenomicsVault from './components/TokenomicsVault';
