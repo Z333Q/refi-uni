@@ -313,7 +313,7 @@ function App() {
           <Sidebar 
             activeTab={activeTab}
             onTabChange={setActiveTab}
-            isMobileMenuOpen={isMobileMenuOpen}
+            isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
           />
           <div className="flex-1 flex flex-col overflow-hidden">
@@ -325,16 +325,14 @@ function App() {
               onMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             />
             {agents.length > 0 && (
-              <div className="bg-[#151B23] border-b border-gray-800 px-6 py-4">
-                <AgentSelector 
-                  agents={agents}
-                  activeAgent={activeAgent}
-                  onAgentChange={setActiveAgent}
-                  onCreateNew={() => setShowConnectWizard(true)}
-                />
-              </div>
+              <AgentSelector 
+                agents={agents}
+                activeAgent={activeAgent}
+                onAgentChange={setActiveAgent}
+                onCreateNew={() => setShowConnectWizard(true)}
+              />
             )}
-            <main className="flex-1 overflow-auto bg-slate-50">
+            <main className="flex-1 overflow-auto bg-midnight-canvas p-6">
               {isLoading ? (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
@@ -345,7 +343,9 @@ function App() {
               ) : agents.length === 0 ? (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center max-w-md mx-auto p-8">
-                    <Bot className="h-16 w-16 text-[#43D4A0] mx-auto mb-6" />
+                    <div className="w-16 h-16 bg-[#43D4A0] rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Bot className="h-8 w-8 text-black" />
+                    </div>
                     <h2 className="text-2xl font-bold mb-4">Welcome to ReFi.Trading</h2>
                     <p className="text-gray-400 mb-6">
                       Get started by deploying your first AI trading agent. 
@@ -360,7 +360,9 @@ function App() {
                   </div>
                 </div>
               ) : (
-                renderMainContent()
+                <div>
+                  {renderMainContent()}
+                </div>
               )}
             </main>
           </div>
