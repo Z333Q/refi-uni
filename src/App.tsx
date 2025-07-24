@@ -33,38 +33,83 @@ import { PerformanceChart } from './components/PerformanceChart';
 import { PortfolioOverview } from './components/PortfolioOverview';
 import { Settings } from './components/Settings';
 
+export type TabType = 'portfolio' | 'risk' | 'trades' | 'basket' | 'proofs' | 'wallet' | 'alerts' | 'compliance' | 'guardian' | 'tokenomics' | 'settings';
+
+export interface TradingAgent {
+  id: string;
+  name: string;
+  strategy: string;
+  status: 'active' | 'paused' | 'deploying';
+  totalValue: number;
+  pnl: number;
+  varStatus: number;
+}
 function App() {
-  const [activeView, setActiveView] = useState('overview');
+  const [activeTab, setActiveTab] = useState<TabType>('portfolio');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [agents, setAgents] = useState<TradingAgent[]>([]);
+  const [activeAgent, setActiveAgent] = useState<string | null>(null);
+  const [showConnectWizard, setShowConnectWizard] = useState(false);
+
+  const currentAgent = agents.find(agent => agent.id === activeAgent);
+
+  const handleConnect = () => {
+    if (!isWalletConnected) {
+      // Connect wallet first
+      setIsWalletConnected(true);
+      setShowConnectWizard(true);
+    } else {
+      // Deploy additional agent
+      setShowConnectWizard(true);
+    }
+  };
+
+  const handleDisconnect = () => {
+    setIsWalletConnected(false);
+    setAgents([]);
+    setActiveAgent(null);
+    setActiveTab('portfolio');
+  };
+
+  const handleAgentComplete = (agentData: { name: string; strategy: string; brokerId: string; apiKeys: Record<string, string> }) => {
+    const newAgent: TradingAgent = {
+      id: `agent_${Date.now()}`,
+      name: agentData.name,
+      strategy: agentData.strategy,
+      status: 'active',
+      totalValue: 45230,
+      pnl: Math.random() * 2000 - 1000,
+      varStatus: Math.random() * 0.5
+    };
+    
+    setAgents(prev => [...prev, newAgent]);
+    setActiveAgent(newAgent.id);
+    setShowConnectWizard(false);
+  };
 
   const renderMainContent = () => {
-    switch (activeView) {
-      case 'overview':
-        return <PortfolioOverview />;
-      case 'risk-monitor':
+    switch (activeTab) {
+      case 'portfolio':
+        return <PortfolioOverview currentAgent={currentAgent} />;
+      case 'risk':
         return <RiskMonitor />;
-      case 'trade-stream':
-        return <TradeStream />;
-      case 'basket-detail':
-        return <BasketDetail />;
-      case 'agent-selector':
-        return <AgentSelector />;
-      case 'connect-wizard':
-        return <ConnectWizard />;
-      case 'proof-explorer':
-        return <ProofExplorer />;
-      case 'wallet-staking':
+      case 'trades':
+        return <TradeStream currentAgent={currentAgent} />;
+      case 'basket':
+        return <BasketDetail currentAgent={currentAgent} />;
+      case 'proofs':
+        return <ProofExplorer currentAgent={currentAgent} />;
+      case 'wallet':
         return <WalletStaking />;
-      case 'alerts-settings':
+      case 'alerts':
         return <AlertsSettings />;
-      case 'compliance-audit':
+      case 'compliance':
         return <ComplianceAudit />;
-      case 'guardian-console':
+      case 'guardian':
         return <GuardianConsole />;
-      case 'tokenomics-vault':
+      case 'tokenomics':
         return <TokenomicsVault />;
-      case 'performance-chart':
-        return <PerformanceChart />;
       case 'settings':
         return <Settings />;
       default:
@@ -233,20 +278,45 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-900">
-      {activeView === 'overview' || activeView === 'default' ? (
-        renderMainContent()
+      {showConnectWizard && (
+        <ConnectWizard 
+          onComplete={handleAgentComplete}
+          onClose={() => setShowConnectWizard(false)}
+          isAdditionalAgent={agents.length > 0}
+        />
+      )}
+      
+      {!isWalletConnected ? (
+        // Show landing page when wallet not connected
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+          {renderMainContent()}
+        </div>
       ) : (
+        // Show dashboard when wallet is connected
         <div className="flex h-screen">
+          {agents.length > 0 && (
+            <div className="bg-[#151B23] border-b border-gray-800 px-6 py-4">
+              <AgentSelector 
+                agents={agents}
+                activeAgent={activeAgent}
+                onAgentChange={setActiveAgent}
+                onCreateNew={() => setShowConnectWizard(true)}
+              />
+            </div>
+          )}
           <Sidebar 
-            activeView={activeView} 
-            setActiveView={setActiveView}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
             isMobileMenuOpen={isMobileMenuOpen}
-            setIsMobileMenuOpen={setIsMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
           />
           <div className="flex-1 flex flex-col overflow-hidden">
             <Header 
-              setIsMobileMenuOpen={setIsMobileMenuOpen}
-              activeView={activeView}
+              isConnected={isWalletConnected}
+              onConnect={handleConnect}
+              onDisconnect={handleDisconnect}
+              currentAgent={currentAgent}
+              onMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             />
             <main className="flex-1 overflow-auto bg-slate-50">
               {renderMainContent()}
