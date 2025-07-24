@@ -349,7 +349,7 @@ function App() {
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center max-w-md mx-auto p-8">
                     <div className="w-16 h-16 bg-[#43D4A0] rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Bot className="h-8 w-8 text-black" />
+                      <Zap className="h-8 w-8 text-black" />
                     </div>
                     <h2 className="text-2xl font-bold mb-4">Welcome to ReFi.Trading</h2>
                     <p className="text-gray-400 mb-6">
@@ -365,9 +365,7 @@ function App() {
                   </div>
                 </div>
               ) : (
-                <div>
-                  {renderMainContent()}
-                </div>
+                renderMainContent()
               )}
             </main>
           </div>
