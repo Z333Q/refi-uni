@@ -56,11 +56,13 @@ function App() {
   const currentAgent = agents.find(agent => agent.id === activeAgent);
 
   // Debug logging for state tracking
-  console.log('App State:', {
+  console.log('🔍 App State Debug:', {
     isWalletConnected,
     agentsCount: agents.length,
     activeAgent,
-    currentAgent: currentAgent?.name
+    currentAgent: currentAgent?.name,
+    showConnectWizard,
+    shouldShowLanding: !isWalletConnected
   });
   const handleConnect = () => {
     console.log('handleConnect called, isWalletConnected:', isWalletConnected);
