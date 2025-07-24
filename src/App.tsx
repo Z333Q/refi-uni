@@ -101,7 +101,7 @@ function App() {
       strategy: agentData.strategy,
       status: 'active',
       totalValue: 45230,
-      pnl: Math.random() * 2000 - 1000,
+      pnl: Math.random() * 8000 + 2000, // $2,000 to $10,000 positive returns
       varStatus: Math.random() * 0.5
     };
     
