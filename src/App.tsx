@@ -345,7 +345,7 @@ function App() {
         />
       )}
       
-      {!isWalletConnected && !showConnectWizard ? (
+      {!showConnectWizard && !isWalletConnected ? (
         // Landing Page
         <div className="min-h-screen bg-midnight-canvas">
           {/* Debug Info */}
@@ -553,7 +553,7 @@ function App() {
             </div>
           </footer>
         </div>
-      ) : (
+      ) : !showConnectWizard ? (
         // Dashboard when wallet is connected
         <div className="flex h-screen">
           <Sidebar 
@@ -613,7 +613,7 @@ function App() {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
