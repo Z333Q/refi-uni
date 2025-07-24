@@ -11,6 +11,7 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<'Area'> | null>(null);
   const [timeframe, setTimeframe] = useState('1D');
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Generate mock data based on timeframe
   const generateMockData = (period: string) => {
@@ -66,71 +67,89 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
     // Check if container has valid dimensions before creating chart
     if (chartContainerRef.current.clientWidth <= 0 || chartContainerRef.current.clientHeight <= 0) return;
 
-    try {
-      // Create chart
-      const chart = createChart(chartContainerRef.current, {
-        layout: {
-          background: { type: ColorType.Solid, color: 'transparent' },
-          textColor: '#9CA3AF',
-        },
-        grid: {
-          vertLines: { color: '#374151' },
-          horzLines: { color: '#374151' },
-        },
-        crosshair: {
-          mode: 1,
-        },
-        rightPriceScale: {
-          borderColor: '#374151',
-        },
-        timeScale: {
-          borderColor: '#374151',
-          timeVisible: true,
-          secondsVisible: false,
-        },
-        width: chartContainerRef.current.clientWidth,
-        height: height,
-      });
+    // Defer chart creation to next event loop cycle
+    timeoutRef.current = setTimeout(() => {
+      try {
+        // Create chart
+        const chart = createChart(chartContainerRef.current!, {
+          layout: {
+            background: { type: ColorType.Solid, color: 'transparent' },
+            textColor: '#9CA3AF',
+          },
+          grid: {
+            vertLines: { color: '#374151' },
+            horzLines: { color: '#374151' },
+          },
+          crosshair: {
+            mode: 1,
+          },
+          rightPriceScale: {
+            borderColor: '#374151',
+          },
+          timeScale: {
+            borderColor: '#374151',
+            timeVisible: true,
+            secondsVisible: false,
+          },
+          width: chartContainerRef.current!.clientWidth,
+          height: height,
+        });
 
-      // Validate chart instance before proceeding
-      if (!chart || typeof chart.addAreaSeries !== 'function') {
-        console.error('Invalid chart instance or addAreaSeries method not available');
-        return;
+        // Validate chart instance before proceeding
+        if (!chart || typeof chart.addAreaSeries !== 'function') {
+          console.error('Invalid chart instance or addAreaSeries method not available');
+          return;
+        }
+
+        // Create area series
+        const areaSeries = chart.addAreaSeries({
+          lineColor: '#43D4A0',
+          topColor: 'rgba(67, 212, 160, 0.4)',
+          bottomColor: 'rgba(67, 212, 160, 0.0)',
+          lineWidth: 2,
+        });
+
+        chartRef.current = chart;
+        seriesRef.current = areaSeries;
+
+        // Handle resize
+        const handleResize = () => {
+          if (chartContainerRef.current && chart) {
+            chart.applyOptions({
+              width: chartContainerRef.current.clientWidth,
+            });
+          }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function
+        const cleanup = () => {
+          window.removeEventListener('resize', handleResize);
+          if (chart) {
+            chart.remove();
+          }
+          chartRef.current = null;
+          seriesRef.current = null;
+        };
+
+        // Store cleanup function for later use
+        timeoutRef.current = cleanup as any;
+      } catch (error) {
+        console.error('Error creating chart:', error);
       }
+    }, 0);
 
-      // Create area series
-      const areaSeries = chart.addAreaSeries({
-        lineColor: '#43D4A0',
-        topColor: 'rgba(67, 212, 160, 0.4)',
-        bottomColor: 'rgba(67, 212, 160, 0.0)',
-        lineWidth: 2,
-      });
-
-      chartRef.current = chart;
-      seriesRef.current = areaSeries;
-
-      // Handle resize
-      const handleResize = () => {
-        if (chartContainerRef.current && chart) {
-          chart.applyOptions({
-            width: chartContainerRef.current.clientWidth,
-          });
+    return () => {
+      if (timeoutRef.current) {
+        if (typeof timeoutRef.current === 'function') {
+          timeoutRef.current();
+        } else {
+          clearTimeout(timeoutRef.current);
         }
-      };
-
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        if (chart) {
-          chart.remove();
-        }
-        chartRef.current = null;
-        seriesRef.current = null;
-      };
-    } catch (error) {
-      console.error('Error creating chart:', error);
-    }
+        timeoutRef.current = null;
+      }
+    };
   }, []); // Empty dependency array to run only once on mount
 
   // Update chart height when height prop changes
