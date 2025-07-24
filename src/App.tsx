@@ -45,6 +45,7 @@ export interface TradingAgent {
   pnl: number;
   varStatus: number;
 }
+
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('portfolio');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -65,6 +66,7 @@ function App() {
     showConnectWizard,
     shouldShowLanding: !isWalletConnected
   });
+
   const handleConnect = () => {
     console.log('handleConnect called, isWalletConnected:', isWalletConnected);
     if (!isWalletConnected) {
@@ -154,9 +156,8 @@ function App() {
                     Algorithmic trading powered by provable AI agents, designed for both retail and institutional investors.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center">
+                    <button className="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center">
                       Launch Portfolio Analyzer
-                      className="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
                     </button>
                     <button className="border border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center">
                       <Play className="mr-2 w-5 h-5" />
@@ -394,10 +395,9 @@ function App() {
                       onClick={() => setShowConnectWizard(true)}
                       className="bg-[#43D4A0] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
                     >
-                      Launch ROI Simulator
-                      Watch Live Trading
+                      Deploy Your First Agent
+                    </button>
                   </div>
-                    <button className="border border-card-stroke text-gray-300 hover:bg-card-bg hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center">
                 </div>
               ) : (
                 renderMainContent()
@@ -411,4 +411,3 @@ function App() {
 }
 
 export default App;
-            <section className="py-16 bg-card-bg/30">
