@@ -243,6 +243,23 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
     }
   }, [isAdditionalAgent, step]);
 
+  // Add debugging for wizard completion
+  const handleComplete = () => {
+    console.log('ConnectWizard completing with data:', {
+      agentName: agentName || selectedTemplateData?.name || 'Trading Agent',
+      strategy: selectedTemplateData?.name || 'Custom Strategy',
+      brokerId: selectedBroker || '',
+      apiKeys: apiKeys
+    });
+    
+    const selectedTemplateData = templates.find(t => t.id === selectedTemplate);
+    onComplete({
+      name: agentName || selectedTemplateData?.name || 'Trading Agent',
+      strategy: selectedTemplateData?.name || 'Custom Strategy',
+      brokerId: selectedBroker || '',
+      apiKeys: apiKeys
+    });
+  };
   const canProceed = () => {
     if (step === 1) return selectedWallet && !isConnecting;
     if (step === 2) return selectedBroker;
@@ -282,13 +299,7 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
           
           <div className="mt-4 text-xs md:text-sm text-gray-400">
-            Step {step} of 6: {
-              step === 1 ? (isAdditionalAgent ? 'Verify Wallet' : 'Connect Wallet') : 
-              step === 2 ? 'Select Broker' :
-              step === 3 ? 'Connect Broker' :
-              step === 4 ? 'Choose Strategy' : 
-              step === 5 ? 'Configure Agent' :
-              'Confirm Deployment'
+              handleComplete();
             }
           </div>
         </div>

@@ -51,14 +51,25 @@ function App() {
   const [agents, setAgents] = useState<TradingAgent[]>([]);
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
   const [showConnectWizard, setShowConnectWizard] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentAgent = agents.find(agent => agent.id === activeAgent);
 
+  // Debug logging for state tracking
+  console.log('App State:', {
+    isWalletConnected,
+    agentsCount: agents.length,
+    activeAgent,
+    currentAgent: currentAgent?.name
+  });
   const handleConnect = () => {
+    console.log('handleConnect called, isWalletConnected:', isWalletConnected);
     if (!isWalletConnected) {
       // Connect wallet first
+      setIsLoading(true);
       setIsWalletConnected(true);
       setShowConnectWizard(true);
+      setIsLoading(false);
     } else {
       // Deploy additional agent
       setShowConnectWizard(true);
@@ -66,13 +77,16 @@ function App() {
   };
 
   const handleDisconnect = () => {
+    console.log('handleDisconnect called');
     setIsWalletConnected(false);
     setAgents([]);
     setActiveAgent(null);
     setActiveTab('portfolio');
+    setIsMobileMenuOpen(false);
   };
 
   const handleAgentComplete = (agentData: { name: string; strategy: string; brokerId: string; apiKeys: Record<string, string> }) => {
+    console.log('handleAgentComplete called with:', agentData);
     const newAgent: TradingAgent = {
       id: `agent_${Date.now()}`,
       name: agentData.name,
@@ -83,9 +97,13 @@ function App() {
       varStatus: Math.random() * 0.5
     };
     
+    console.log('Creating new agent:', newAgent);
     setAgents(prev => [...prev, newAgent]);
     setActiveAgent(newAgent.id);
     setShowConnectWizard(false);
+    
+    // Ensure we're on the portfolio tab after agent creation
+    setActiveTab('portfolio');
   };
 
   const renderMainContent = () => {
@@ -288,22 +306,10 @@ function App() {
       
       {!isWalletConnected ? (
         // Show landing page when wallet not connected
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-          {renderMainContent()}
-        </div>
+        renderMainContent()
       ) : (
         // Show dashboard when wallet is connected
         <div className="flex h-screen">
-          {agents.length > 0 && (
-            <div className="bg-[#151B23] border-b border-gray-800 px-6 py-4">
-              <AgentSelector 
-                agents={agents}
-                activeAgent={activeAgent}
-                onAgentChange={setActiveAgent}
-                onCreateNew={() => setShowConnectWizard(true)}
-              />
-            </div>
-          )}
           <Sidebar 
             activeTab={activeTab}
             onTabChange={setActiveTab}
@@ -318,8 +324,44 @@ function App() {
               currentAgent={currentAgent}
               onMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             />
+            {agents.length > 0 && (
+              <div className="bg-[#151B23] border-b border-gray-800 px-6 py-4">
+                <AgentSelector 
+                  agents={agents}
+                  activeAgent={activeAgent}
+                  onAgentChange={setActiveAgent}
+                  onCreateNew={() => setShowConnectWizard(true)}
+                />
+              </div>
+            )}
             <main className="flex-1 overflow-auto bg-slate-50">
-              {renderMainContent()}
+              {isLoading ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center">
+                    <div className="w-8 h-8 border-2 border-[#43D4A0] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-400">Loading...</p>
+                  </div>
+                </div>
+              ) : agents.length === 0 ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center max-w-md mx-auto p-8">
+                    <Bot className="h-16 w-16 text-[#43D4A0] mx-auto mb-6" />
+                    <h2 className="text-2xl font-bold mb-4">Welcome to ReFi.Trading</h2>
+                    <p className="text-gray-400 mb-6">
+                      Get started by deploying your first AI trading agent. 
+                      Connect your broker and choose a strategy to begin automated trading.
+                    </p>
+                    <button
+                      onClick={() => setShowConnectWizard(true)}
+                      className="bg-[#43D4A0] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
+                    >
+                      Deploy Your First Agent
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                renderMainContent()
+              )}
             </main>
           </div>
         </div>
