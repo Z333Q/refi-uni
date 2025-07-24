@@ -11,7 +11,6 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<'Area'> | null>(null);
   const [timeframe, setTimeframe] = useState('1D');
-  const animationFrameRef = useRef<number | null>(null);
 
   // Generate mock data based on timeframe
   const generateMockData = (period: string) => {
@@ -63,18 +62,30 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   // Initialize chart once when component mounts
   useEffect(() => {
     if (!chartContainerRef.current) return;
+    
+    let animationFrameId: number | null = null;
+    let isDestroyed = false;
 
     const initializeChart = () => {
+      if (isDestroyed) return;
+      
       // Check if container has valid dimensions
       if (!chartContainerRef.current || 
           chartContainerRef.current.clientWidth <= 0 || 
           chartContainerRef.current.clientHeight <= 0) {
         // Retry on next animation frame
-        animationFrameRef.current = requestAnimationFrame(initializeChart);
+        animationFrameId = requestAnimationFrame(initializeChart);
         return;
       }
 
       try {
+        // Clean up any existing chart
+        if (chartRef.current) {
+          chartRef.current.remove();
+          chartRef.current = null;
+          seriesRef.current = null;
+        }
+        
         // Create chart
         const chart = createChart(chartContainerRef.current, {
           layout: {
@@ -103,8 +114,6 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
         // Validate chart instance before proceeding
         if (!chart || typeof chart.addAreaSeries !== 'function') {
           console.error('Invalid chart instance or addAreaSeries method not available');
-          // Retry on next animation frame
-          animationFrameRef.current = requestAnimationFrame(initializeChart);
           return;
         }
 
@@ -121,7 +130,7 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
 
         // Handle resize
         const handleResize = () => {
-          if (chartContainerRef.current && chart) {
+          if (chartContainerRef.current && chart && !isDestroyed) {
             chart.applyOptions({
               width: chartContainerRef.current.clientWidth,
             });
@@ -130,36 +139,27 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
 
         window.addEventListener('resize', handleResize);
 
-        // Store cleanup function
-        const cleanup = () => {
-          window.removeEventListener('resize', handleResize);
-          if (chart) {
-            chart.remove();
-          }
-          chartRef.current = null;
-          seriesRef.current = null;
-        };
-
-        // Store cleanup for component unmount
-        animationFrameRef.current = cleanup as any;
       } catch (error) {
         console.error('Error creating chart:', error);
-        // Retry on next animation frame
-        animationFrameRef.current = requestAnimationFrame(initializeChart);
       }
     };
 
     // Start initialization
-    animationFrameRef.current = requestAnimationFrame(initializeChart);
+    animationFrameId = requestAnimationFrame(initializeChart);
 
     return () => {
-      if (animationFrameRef.current) {
-        if (typeof animationFrameRef.current === 'function') {
-          animationFrameRef.current();
-        } else {
-          cancelAnimationFrame(animationFrameRef.current);
-        }
-        animationFrameRef.current = null;
+      isDestroyed = true;
+      
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      
+      window.removeEventListener('resize', () => {});
+      
+      if (chartRef.current) {
+        chartRef.current.remove();
+        chartRef.current = null;
+        seriesRef.current = null;
       }
     };
   }, []); // Empty dependency array to run only once on mount
