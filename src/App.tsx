@@ -359,12 +359,15 @@ function App() {
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
               <div className="text-center">
                 {/* Logo */}
-                <div className="flex justify-center mb-8">
+                <div className="flex justify-center items-center space-x-4 mb-8">
                   <img 
                     src="/green-logo-only-squareArtboard 1@0.25x.png" 
                     alt="ReFi.Trading Logo" 
                     className="h-16 w-16 md:h-20 md:w-20"
                   />
+                  <div className="text-3xl md:text-4xl font-bold text-white">
+                    ReFi.Trading
+                  </div>
                 </div>
                 
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
