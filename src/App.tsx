@@ -101,7 +101,8 @@ function App() {
       strategy: agentData.strategy,
       status: 'active',
       totalValue: 45230,
-      pnl: Math.random() * 8000 + 2000, // $2,000 to $10,000 positive returns
+      // Apply ReFinity Agent performance: 28.86% CAGR on $45,230 portfolio
+      pnl: (45230 * 0.2886) + (Math.random() * 2000), // Base annual return + variance
       varStatus: Math.random() * 0.5
     };
     
