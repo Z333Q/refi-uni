@@ -169,7 +169,10 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
       console.error('MetaMask connection error:', error);
       // Provide more informative error messages for common MetaMask issues
       if (error.message === 'Failed to connect to MetaMask' || error.message.includes('Failed to connect')) {
-        setConnectionError('Unable to connect to MetaMask. Please ensure MetaMask is installed, unlocked, and try refreshing the page.');
+        // Check if mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const metamaskType = isMobile ? 'MetaMask app' : 'MetaMask extension';
+        setConnectionError(`Unable to connect to MetaMask. Please ensure the ${metamaskType} is installed, unlocked, and try refreshing the page.`);
       } else {
         setConnectionError(error.message || 'Failed to connect to MetaMask');
       }
