@@ -23,7 +23,7 @@ import TradeStream from './components/TradeStream';
 import { BasketDetail } from './components/BasketDetail';
 import { AgentSelector } from './components/AgentSelector';
 import { ConnectWizard } from './components/ConnectWizard';
-import ProofExplorer from './components/ProofExplorer';
+import { ProofExplorer } from './components/ProofExplorer';
 import WalletStaking from './components/WalletStaking';
 import { AlertsSettings } from './components/AlertsSettings';
 import { ComplianceAudit } from './components/ComplianceAudit';
