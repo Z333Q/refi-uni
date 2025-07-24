@@ -492,7 +492,7 @@ function App() {
                   Connect Wallet
                 </button>
                 <button className="border border-card-stroke text-gray-300 hover:bg-card-bg hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200">
-                  Try Portfolio Analyzer
+                  Try ROI Simulator
                 </button>
               </div>
             </div>
