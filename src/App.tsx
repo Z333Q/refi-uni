@@ -17,21 +17,21 @@ import {
 } from 'lucide-react';
 
 import { Header } from './components/Header';
-import Sidebar from './components/Sidebar';
-import RiskMonitor from './components/RiskMonitor';
-import TradeStream from './components/TradeStream';
+import { Sidebar } from './components/Sidebar';
+import { RiskMonitor } from './components/RiskMonitor';
+import { TradeStream } from './components/TradeStream';
 import { BasketDetail } from './components/BasketDetail';
 import { AgentSelector } from './components/AgentSelector';
 import { ConnectWizard } from './components/ConnectWizard';
 import { ProofExplorer } from './components/ProofExplorer';
-import WalletStaking from './components/WalletStaking';
+import { WalletStaking } from './components/WalletStaking';
 import { AlertsSettings } from './components/AlertsSettings';
 import { ComplianceAudit } from './components/ComplianceAudit';
 import { GuardianConsole } from './components/GuardianConsole';
-import TokenomicsVault from './components/TokenomicsVault';
+import { TokenomicsVault } from './components/TokenomicsVault';
 import { PerformanceChart } from './components/PerformanceChart';
 import { PortfolioOverview } from './components/PortfolioOverview';
-import Settings from './components/Settings';
+import { Settings } from './components/Settings';
 
 function App() {
   const [activeView, setActiveView] = useState('overview');
