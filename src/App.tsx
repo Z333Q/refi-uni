@@ -590,27 +590,16 @@ function App() {
                       Connect your broker and choose a strategy to begin automated trading.
                     </p>
                     <button
-            
-            {/* Connect Wallet CTA - Higher on page */}
-            <div className="mb-8">
-              <button 
-                onClick={handleConnect}
-                className="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center mx-auto"
-              >
-                Connect Wallet
-              </button>
-            </div>
-            
                       onClick={() => setShowConnectWizard(true)}
                       className="bg-[#43D4A0] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#3BC492] transition-colors"
                     >
-                className="bg-neon-green hover:bg-neon-green/90 text-black px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
+                      Deploy Your First Agent
                     </button>
-                Connect Wallet
+                  </div>
                 </div>
               ) : (
                 renderMainContent()
-                Try Portfolio Analyzer
+              )}
               </main>
             </div>
           </div>
