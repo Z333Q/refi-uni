@@ -29,7 +29,7 @@ import { AlertsSettings } from './components/AlertsSettings';
 import { ComplianceAudit } from './components/ComplianceAudit';
 import { GuardianConsole } from './components/GuardianConsole';
 import TokenomicsVault from './components/TokenomicsVault';
-import PerformanceChart from './components/PerformanceChart';
+import { PerformanceChart } from './components/PerformanceChart';
 import PortfolioOverview from './components/PortfolioOverview';
 import Settings from './components/Settings';
 
