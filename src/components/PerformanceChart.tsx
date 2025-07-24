@@ -11,7 +11,7 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<'Area'> | null>(null);
   const [timeframe, setTimeframe] = useState('1D');
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   // Generate mock data based on timeframe
   const generateMockData = (period: string) => {
@@ -63,15 +63,20 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
   // Initialize chart once when component mounts
   useEffect(() => {
     if (!chartContainerRef.current) return;
-    
-    // Check if container has valid dimensions before creating chart
-    if (chartContainerRef.current.clientWidth <= 0 || chartContainerRef.current.clientHeight <= 0) return;
 
-    // Defer chart creation to next event loop cycle
-    timeoutRef.current = setTimeout(() => {
+    const initializeChart = () => {
+      // Check if container has valid dimensions
+      if (!chartContainerRef.current || 
+          chartContainerRef.current.clientWidth <= 0 || 
+          chartContainerRef.current.clientHeight <= 0) {
+        // Retry on next animation frame
+        animationFrameRef.current = requestAnimationFrame(initializeChart);
+        return;
+      }
+
       try {
         // Create chart
-        const chart = createChart(chartContainerRef.current!, {
+        const chart = createChart(chartContainerRef.current, {
           layout: {
             background: { type: ColorType.Solid, color: 'transparent' },
             textColor: '#9CA3AF',
@@ -91,13 +96,15 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
             timeVisible: true,
             secondsVisible: false,
           },
-          width: chartContainerRef.current!.clientWidth,
+          width: chartContainerRef.current.clientWidth,
           height: height,
         });
 
         // Validate chart instance before proceeding
         if (!chart || typeof chart.addAreaSeries !== 'function') {
           console.error('Invalid chart instance or addAreaSeries method not available');
+          // Retry on next animation frame
+          animationFrameRef.current = requestAnimationFrame(initializeChart);
           return;
         }
 
@@ -123,7 +130,7 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
 
         window.addEventListener('resize', handleResize);
 
-        // Cleanup function
+        // Store cleanup function
         const cleanup = () => {
           window.removeEventListener('resize', handleResize);
           if (chart) {
@@ -133,21 +140,26 @@ export function PerformanceChart({ data, height = 300 }: PerformanceChartProps) 
           seriesRef.current = null;
         };
 
-        // Store cleanup function for later use
-        timeoutRef.current = cleanup as any;
+        // Store cleanup for component unmount
+        animationFrameRef.current = cleanup as any;
       } catch (error) {
         console.error('Error creating chart:', error);
+        // Retry on next animation frame
+        animationFrameRef.current = requestAnimationFrame(initializeChart);
       }
-    }, 0);
+    };
+
+    // Start initialization
+    animationFrameRef.current = requestAnimationFrame(initializeChart);
 
     return () => {
-      if (timeoutRef.current) {
-        if (typeof timeoutRef.current === 'function') {
-          timeoutRef.current();
+      if (animationFrameRef.current) {
+        if (typeof animationFrameRef.current === 'function') {
+          animationFrameRef.current();
         } else {
-          clearTimeout(timeoutRef.current);
+          cancelAnimationFrame(animationFrameRef.current);
         }
-        timeoutRef.current = null;
+        animationFrameRef.current = null;
       }
     };
   }, []); // Empty dependency array to run only once on mount
