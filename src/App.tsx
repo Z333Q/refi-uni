@@ -16,7 +16,7 @@ import {
   Mail
 } from 'lucide-react';
 
-import Header from './components/Header';
+import { Header } from './components/Header';
 import Sidebar from './components/Sidebar';
 import RiskMonitor from './components/RiskMonitor';
 import TradeStream from './components/TradeStream';
