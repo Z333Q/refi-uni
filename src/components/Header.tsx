@@ -28,19 +28,8 @@ export function Header({ isConnected, onConnect, onDisconnect, currentAgent, onM
               </button>
             )}
             
-            {/* Logo & Title */}
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-3">
-                <img 
-                  src="/green-logo-only-squareArtboard 1@0.25x.png" 
-                  alt="ReFi.Trading Logo" 
-                  className="h-5 w-5 md:h-6 md:w-6"
-                />
-                <div className="text-lg md:text-xl font-bold">ReFi.Trading</div>
-              </div>
-              <div className="hidden sm:block h-6 w-px bg-gray-700"></div>
-              <h1 className="hidden sm:block text-sm md:text-lg font-medium text-gray-300">Trading Dashboard</h1>
-            </div>
+            {/* Title */}
+            <h1 className="text-lg md:text-xl font-medium text-gray-300">Trading Dashboard</h1>
 
             {/* Network Status */}
             <div className="hidden lg:flex items-center space-x-2 bg-neon-green/10 border border-neon-green/30 px-3 py-1.5 rounded-default">
