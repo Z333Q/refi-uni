@@ -21,7 +21,7 @@ import Sidebar from './components/Sidebar';
 import RiskMonitor from './components/RiskMonitor';
 import TradeStream from './components/TradeStream';
 import BasketDetail from './components/BasketDetail';
-import AgentSelector from './components/AgentSelector';
+import { AgentSelector } from './components/AgentSelector';
 import ConnectWizard from './components/ConnectWizard';
 import ProofExplorer from './components/ProofExplorer';
 import WalletStaking from './components/WalletStaking';
