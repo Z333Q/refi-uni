@@ -65,11 +65,8 @@ function App() {
   const handleConnect = () => {
     console.log('handleConnect called, isWalletConnected:', isWalletConnected);
     if (!isWalletConnected) {
-      // Connect wallet first
-      setIsLoading(true);
-      setIsWalletConnected(true);
+      // Show connect wizard, wallet connection happens inside wizard
       setShowConnectWizard(true);
-      setIsLoading(false);
     } else {
       // Deploy additional agent
       setShowConnectWizard(true);
@@ -87,6 +84,12 @@ function App() {
 
   const handleAgentComplete = (agentData: { name: string; strategy: string; brokerId: string; apiKeys: Record<string, string> }) => {
     console.log('handleAgentComplete called with:', agentData);
+    
+    // Set wallet as connected when first agent is created
+    if (!isWalletConnected) {
+      setIsWalletConnected(true);
+    }
+    
     const newAgent: TradingAgent = {
       id: `agent_${Date.now()}`,
       name: agentData.name,
