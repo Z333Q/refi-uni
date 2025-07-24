@@ -299,7 +299,13 @@ export function ConnectWizard({ onComplete, onClose, isAdditionalAgent = false }
           </div>
           
           <div className="mt-4 text-xs md:text-sm text-gray-400">
-              handleComplete();
+            Step {step} of 6: {
+              step === 1 ? (isAdditionalAgent ? 'Wallet Connected' : 'Connect Wallet') :
+              step === 2 ? 'Select Broker' :
+              step === 3 ? 'Configure API' :
+              step === 4 ? 'Choose Strategy' :
+              step === 5 ? 'Configure Agent' :
+              'Confirm Deployment'
             }
           </div>
         </div>
