@@ -19,7 +19,11 @@ export function PortfolioOverview({ currentAgent }: PortfolioOverviewProps) {
     }
     
     const interval = setInterval(() => {
-      setPnl(prev => prev + (Math.random() - 0.5) * 100);
+      setPnl(prev => {
+        const change = (Math.random() - 0.48) * 50; // Slight positive bias, smaller changes
+        const newValue = prev + change;
+        return Math.max(newValue, -5000); // Don't let it go below -$5,000
+      });
       setVarStatus(prev => Math.max(0, prev + (Math.random() - 0.5) * 0.01));
     }, 2000);
     
